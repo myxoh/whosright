@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :only_admin, only: [:index, :destroy] #Only Administrators can list all users or destroy them
   before_action :user_match, only: [:edit, :update] # Only the user should have access to this content
-  before_action :get_user_or_redirect, only: [:show] #Only show the profiles to logged in users.
+  before_action :get_user_or_redirect, only: [:show, :edit, :update] #Only show the profiles to logged in users.
   # GET /users
   # GET /users.json
   def index
@@ -16,6 +16,8 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    @config[:header]='/partials/logged_out_header'
+    
     @user = User.new
   end
 
@@ -27,10 +29,9 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { log_in(@user,notice:"User was created successfully")}
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -69,7 +70,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
     
-    def match_user
+    def user_match
       requested_access_to=@user
       get_user #Get Logged in User
       (@user==requested_access_to)? true : redirect_to(root_path,{flash:{error:"Not enough permissions to do this"}})

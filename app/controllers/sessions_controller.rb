@@ -1,17 +1,15 @@
 class SessionsController < ApplicationController
   before_action :get_user
-  helper_method :log_in
-  
   def new
-    
+    @config[:header]='/partials/logged_out_header'
   end
   
   def create
+    @config[:header]='/partials/logged_out_header'
     #TODO code the 'remember-me' button
     user=User.find_by_email(params[:sessions][:email])
     if user&&user.authenticate(params[:sessions][:password]) then
-        log_in(user)
-        redirect_to home_path
+        log_in(user, message:"Successfully logged in")
     else
         flash.now[:error]="Wrong E-mail or Password"
         render 'new'
@@ -19,6 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session[:user_id]=nil
     redirect_to login_path
   end
 

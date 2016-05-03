@@ -8,16 +8,18 @@ class ApplicationController < ActionController::Base
     @config={
       lang: "en",
       title:"Who's Right?",
-      header: '/partials/default_header',
+      header: '/partials/not_logged',
       main_class: 'container',
       footer: nil
     }
     @user=nil
   end
   
+  
   def get_user_or_redirect
     get_user
-    if @user.nil? then redirect_to login_path end
+     @config[:header]='/partials/default_header'
+     if @user.nil? then redirect_to login_path end
   end
   
   def get_user
