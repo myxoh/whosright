@@ -4,31 +4,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :initial_config
   include SessionsHelper
+  include ConfigConstants
+  include UserPermissions
   def initial_config
-    @config={
-      lang: "en",
-      title:"Who's Right?",
-      header: '/partials/not_logged',
-      main_class: 'container',
-      footer: nil
-    }
+    @config=INITIAL_CONFIG
     @user=nil
   end
   
-  
-  def get_user_or_redirect
-    get_user
-     @config[:header]='/partials/default_header'
-     if @user.nil? then redirect_to login_path end
+  def logged_in_configurations
+    @config[:header]=LOGGED_HEADER
+    discussions=Discussion.where("created_at >'#{new_discussions_time_definition}'").count #new_discussions_time_definition defined in ConfigConstants
+    @config[:discussions]=(discussions>99)? "99+" : discussions
   end
-  
-  def get_user
-    @user=User.find_by_id(session[:user_id])
-  end
-  
-  def only_admin
-    #TODO if we ever get user_types check for user_type==User.ADMIN
-    redirect_to root_path, flash:{error:"Not enough permissions"}
-  end
-  
+    
 end

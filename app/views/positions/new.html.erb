@@ -1,0 +1,18 @@
+<center><h1>New Position</h1></center>
+<div class="content">
+<%= form_for(@position, url:discussion_positions_path(@position.discussion)) do |f| %>
+	<p>You are about to invite <%=@position.email%> to join the Discussion<br>
+	You should wait until him or her uploads his position before publishing the invitation</p>
+	<% if @position.user.nil? %>
+	<p>
+		Also, since the user you've invited doesn't have an account, we recommend that you invite him to our system!
+	</p>
+	<% end %>
+	<%= f.hidden_field :email%>
+	<%= f.hidden_field :discussion_id%>
+	<%= f.submit "Confirm Invitation", class:"btn btn-primary"%>
+<% end %>
+</div>
+
+<center><%= link_to 'Back', discussion_path(@position.discussion) %></center>
+

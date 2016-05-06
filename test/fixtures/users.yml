@@ -11,3 +11,9 @@ two:
   last_name: Carlos
   email: second@user.com
   password_digest: MyString
+  
+three:
+  first_name: No
+  last_name: Permissions
+  email: irrelevant@user.com
+  password_digest: MyString

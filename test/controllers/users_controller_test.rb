@@ -2,9 +2,16 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
-    user = users(:two)
-    session[:user_id]=user.id #Logged in as the second user.
+    log_in(users(:one)) #Logged in as the second user.
+    @user = users(:one) #
+  end
+  
+  def edit_test
+    get :edit, id: @user
+  end
+  
+  def update_test
+    patch :update, id: @user, user: {first_name: "Nicolas",last_name:"Klein", email:"valid@email.com", password:"123test",password_confirmation:"123test"}
   end
 
   test "should not get index" do #Only for Admins
@@ -30,25 +37,22 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should not get edit" do
-    get :edit, id: @user
-    assert_redirected_to root_path #Logged in as second user, requesting for first
+    not_enough_permissions_assertion(users(:two)){edit_test}
   end
 
   test "should get edit" do
-    user=users(:two)
-    get :edit, id: user
+    edit_test
     assert_response :success
   end
   
   test "should not update user" do
-    patch :update, id: @user, user: {first_name: "Nicolas",last_name:"Klein", email:"valid@email.com", password:"123test",password_confirmation:"123test"}
-    assert_redirected_to root_path, "Managed to update wrong user:#{@user.email}"
+     not_enough_permissions_assertion(users(:two)){update_test}
   end
 
   test "should update user" do
-    user=users(:two)
-    patch :update, id: user, user: {first_name: "Nicolas",last_name:"Klein", password:"123test",password_confirmation:"123test"}
-    assert_redirected_to user_path(assigns(:user)), "With user:#{@user.email}"
+    update_test
+    assert_redirected_to user_path(assigns(:user)), "With user:#{@user.email}"   
+    assert_not_equal assigns(:user).email, "valid@email.com", "Email changed! Email should NOT be changed"
   end
 
   test "should not destroy user" do
@@ -57,4 +61,10 @@ class UsersControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_path
   end
+  
+  test "Search tests" do
+    assert false
+  end
+  
+  
 end

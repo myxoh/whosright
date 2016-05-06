@@ -2,13 +2,7 @@
 @import "bootstrap";
 
 /*Site's Design'*/
-form{
-  max-width: 500px;
-  margin: auto;
-  h1, h2, h3{
-    padding:10px;
-  }
-  input{
-    padding:5px;
-  }
-}
+@import "styles/forms";
+@import "styles/links";
+@import "styles/articles"
+

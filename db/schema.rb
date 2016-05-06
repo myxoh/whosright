@@ -11,7 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501222252) do
+ActiveRecord::Schema.define(version: 20160505200922) do
+
+  create_table "discussion_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discussions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "header"
+    t.text     "body"
+    t.integer  "discussion_type_id"
+    t.integer  "score"
+    t.integer  "topic_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.boolean  "published"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.integer  "discussion_id"
+    t.string   "email"
+    t.string   "name"
+    t.text     "body"
+    t.integer  "score"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "token"
+  end
+
+  add_index "positions", ["discussion_id"], name: "index_positions_on_discussion_id"
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_profiles", force: :cascade do |t|
     t.integer  "user_id"

@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-sm-4 col-md-4" id="search-box">
+			<div class="thumbnail">
+				<h3> <center>Look for user</center></h3>
+				<div class="caption">
+				  <%=form_for(:user, url:users_by_email_path, remote:true,format: :json, method: :get, html:{id:"search_form",'data-type' => 'json'}) do|f|%>
+				  <%=f.email_field :email, placeholder:"E-mail",  class:"form-control" %>
+				  <br>
+				  <%=button_tag content_tag(:span, " Search", class:"glyphicon glyphicon-search"),  class:"form-control" %>
+				  <%end%>
+				 </div>
+			</div>
+	</div>
+	<div class="col-sm-8 col-md-8" id="user-box">
+			<div class="thumbnail">
+				<h3> <center>User found!</center></h3>
+				<div class="caption">
+				  <p><b id="user_result_full_name"></b> was found using email <b id="user_result_email"></b></p>
+				  <script>
+				  	var route = "<%=@config[:look_for_user][:invite_link]%>"
+				  </script>
+				  <center><%=link_to 'Invite Him', "#", id: "invite_link", class:"btn btn-primary invite_link"%></center>
+				 </div>
+			</div>
+	</div>
+	<div class="col-sm-8 col-md-8" id="invite-box">
+			<div class="thumbnail">
+				<h3> <center>No user was found</center></h3>
+				<div class="caption">
+					<p>No user was found with e-mail: <b data-param="email"></b> </p>
+					<center><%=link_to 'Invite Him', "#", id: "invite_link_2", class:"btn btn-primary invite_link", "data-param"=>"email"%></center>
+				</div>
+			</div>
+	</div>
+</div>

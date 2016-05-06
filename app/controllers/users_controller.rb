@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :only_admin, only: [:index, :destroy] #Only Administrators can list all users or destroy them
   before_action :user_match, only: [:edit, :update] # Only the user should have access to this content
-  before_action :get_user_or_redirect, only: [:show, :edit, :update] #Only show the profiles to logged in users.
+  before_action :get_user_or_redirect, only: [:show, :edit, :update, :by_email] #Only show the profiles to logged in users.
+  before_action :config_email_disabled, only: [:edit, :update]
   # GET /users
   # GET /users.json
   def index
@@ -12,12 +13,16 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    show_user
+  end
+  
+  def by_email
+    @user=User.find(User.find_by_email(params[:user][:email]).try(:id)) #Force 404 if user doesn't exist
+    show_user
   end
 
   # GET /users/new
-  def new
-    @config[:header]='/partials/logged_out_header'
-    
+  def new  
     @user = User.new
   end
 
@@ -44,7 +49,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(modify_user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -69,6 +74,16 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
+    def show_user
+      respond_to do |format|
+        format.html {render 'show'}
+        format.json {render json:@user}
+      end
+    end
+    
+    def config_email_disabled
+      @config[:email_disabled]=true
+    end
     
     def user_match
       requested_access_to=@user
@@ -79,5 +94,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    end
+    
+    def modify_user_params
+      params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
     end
 end

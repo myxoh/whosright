@@ -30,4 +30,5 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, sessions:{email:"test@email.com",password:"test123"}
     assert_redirected_to home_path
   end
+  
 end

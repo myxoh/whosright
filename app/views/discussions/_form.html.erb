@@ -1,0 +1,22 @@
+<%= form_for(@discussion, class:"form-publish") do |f| %>
+<h1><%=@config[:h1]%></h1>
+  <div class="field">
+    <%= f.label :header %><br>
+    <%= f.text_field :header,  class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :body %><br>
+    <%= f.text_area :body,  class:"form-control"%>
+  </div>
+  <div class="field">
+    <%= f.label :discussion_type_id %><br>
+    <%= f.select :discussion_type_id, DiscussionType.all.collect {|x| [x.name, x.id]}, class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :topic_id %><br>
+  	<%= f.select :topic_id, Topic.all.collect {|x| [x.name, x.id]}, class:"form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class:"btn btn-primary" %>
+  </div>
+<% end %>

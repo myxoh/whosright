@@ -1,0 +1,57 @@
+<div class="article">
+	<div class="header">
+		<center><h1><%=@discussion.header%></h1>
+		<p><ul><li><%=@discussion.type.name%></li><li><%=@discussion.topic.name%></li></ul> </p>
+		<p>By user: <%=link_to_user(@discussion.user)%> | Score: <b><%=@discussion.score.to_i%></b>
+		    | <%=if owns?(@discussion) then link_to 'Edit', edit_discussion_path(@discussion) end%></p>
+		</center>
+	</div>
+	<div class="content">
+		<p><%=simple_format(@discussion.body)%></p>
+		<h3><center>Positions:</center></h3>
+		<div class="container">
+			<%index=1%>
+			<%@discussion.positions.each_slice(2) do |row|%>
+			<div class="row">
+				<%row.each do |position|%>
+					<div class="col-sm-6 col-md-4">
+						<div class="thumbnail">
+							<div class="caption">
+								<p><b>By</b> <%=position.get_name(index)%></p>
+								<p><%=simple_format(position.body)%></p>
+							</div>
+							<div class="caption footer">
+								<p>
+									<span>
+									 <a href="#" class="btn btn-success" role="button"><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a>
+									 <span class="badge"><%=position.score.to_i%></span>
+									 <a href="#" class="btn btn-danger" role="button"><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></a>
+									 <%if owns?(position)||owns?(@discussion)%>
+									 	| <%= link_to 'Delete', position, method: :delete, data: { confirm: 'Are you sure?' } %>
+									 <%end%>
+									</span>
+								</p>
+							</div>
+						</div>
+						</div>
+				<%index+=1%>
+				<%end%>
+			</div>
+			<%end%>
+		</div>
+	</div>
+	<div class="footer">
+		<h2>Positions:</h2>
+		<div class="well">
+		<h4>Add everyone to this argument so they can express their opinion/position.
+			 Don't forget to include yourself!</h4>
+		</div>
+		<%if editable? @discussion%>
+			<%@config[:look_for_user]={}%>
+			<%@config[:look_for_user][:invite_link]=new_discussion_position_path(@discussion)%>
+			<%=render "partials/look_for_user" %>
+		<%end%>
+	</div>
+</div>
+
+<%= link_to 'Back', discussions_path %>

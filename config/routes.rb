@@ -1,14 +1,35 @@
 Rails.application.routes.draw do
-  get 'home/stories'
+  resources :positions, except: [:new]
+  resources :discussions do
+    resources :positions
+  end
+  resources :users do
+    resources :discussions
+  end
+  
+  
+  #Speecial interactions with resources
+  get 'users_by/email' => 'users#by_email'
 
+  #Login / Logout options
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
   get 'home' => 'home#stories'
-  resources :users
+  
+  
   
   root 'sessions#redirect'
+  
+
+    namespace :api do
+      namespace :v1 do
+  
+        resources :discussions, shallow:true
+  
+      end
+    end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
