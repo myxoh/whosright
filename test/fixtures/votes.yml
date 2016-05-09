@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  positive: false
+  votable_id: 
+  votable_type: Votable
+
+two:
+  positive: false
+  votable_id: 
+  votable_type: Votable

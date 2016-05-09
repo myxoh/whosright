@@ -1,4 +1,5 @@
 class Position < ActiveRecord::Base
+  include Votable
   belongs_to :discussion
   belongs_to :user, foreign_key:"email",primary_key:"email"
   has_secure_token

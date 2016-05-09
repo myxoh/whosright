@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160505200922) do
+ActiveRecord::Schema.define(version: 20160508131514) do
 
   create_table "discussion_types", force: :cascade do |t|
     t.string   "name"
@@ -66,5 +66,17 @@ ActiveRecord::Schema.define(version: 20160505200922) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  create_table "votes", force: :cascade do |t|
+    t.boolean  "positive"
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+  end
+
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
 
 end

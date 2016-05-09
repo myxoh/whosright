@@ -1,4 +1,5 @@
 class PositionsController < ApplicationController
+  include VotableController
   before_action :set_position, only: [:show, :edit, :update, :destroy]
   before_action :get_user_or_redirect
   before_action :only_admin, only: [:index]
@@ -40,7 +41,7 @@ class PositionsController < ApplicationController
   # POST /positions
   # POST /positions.json
   def create
-    @position = @discussion.positions.new(position_params)
+    @position = @discussion.positions.new(create_position_params)
 
     respond_to do |format|
       if @position.save
@@ -58,7 +59,7 @@ class PositionsController < ApplicationController
   # PATCH/PUT /positions/1.json
   def update
     respond_to do |format|
-      if @position.update(position_params)
+      if @position.update(edit_position_params)
         format.html { redirect_to @position, notice: 'Position was successfully updated.' }
         format.json { render :show, status: :ok, location: @position }
       else
@@ -80,15 +81,22 @@ class PositionsController < ApplicationController
 
   private
     def set_discussion
-      @discussion = Discussion.find_by(params[:discussion_id])
+      @discussion = Discussion.find_by(id:params[:discussion_id])
       @discussion||=@position.discussion
     end
     def set_position
       @position = Position.find(params[:id])
     end
+    def set_votable
+      set_position
+      @votable=@position
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def position_params
-      params.require(:position).permit(:discussion_id, :email, :name, :body, :score)
+    def create_position_params
+      params.require(:position).permit(:discussion_id, :email)
+    end
+    def edit_position_params
+      params.require(:position).permit(:name, :body)
     end
 end

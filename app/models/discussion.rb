@@ -1,4 +1,5 @@
 class Discussion < ActiveRecord::Base
+  include Votable
   belongs_to :user
   belongs_to :topic
   belongs_to :type, class_name:"DiscussionType", foreign_key:"discussion_type_id"
@@ -7,7 +8,6 @@ class Discussion < ActiveRecord::Base
   validates :topic, presence: true
   validates :type, presence: true
   has_many :positions
-  
   def editable? user
     user.owns?(self)&&editable_conditions?
   end

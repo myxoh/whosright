@@ -1,10 +1,23 @@
 Rails.application.routes.draw do
-  resources :positions, except: [:new]
-  resources :discussions do
+  concern  :votable do
+    member do #Create actually calls the CRUD method which figures out whether to Create, Update or Destroy the vote.
+      get 'vote_up'
+      get 'vote_down'
+    end
+  end
+  resources :positions, except: [:new, :create], concerns: :votable
+  
+ 
+
+  resources :discussions, concerns: :votable do
     resources :positions
   end
+  
   resources :users do
     resources :discussions
+    member do
+      get 'positions'
+    end
   end
   
   
@@ -23,13 +36,13 @@ Rails.application.routes.draw do
   root 'sessions#redirect'
   
 
-    namespace :api do
-      namespace :v1 do
-  
-        resources :discussions, shallow:true
-  
-      end
-    end
+  #  namespace :api do
+  #    namespace :v1 do
+  #
+  #      resources :discussions, shallow:true
+  #
+  #   end
+  #  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -5,7 +5,6 @@ module UserPermissions
      if @user.nil? then 
        redirect_to login_path, flash:{error:"You must login first"} 
      else
-              bug
        logged_in_configurations()
      end
   end
@@ -26,6 +25,9 @@ module UserPermissions
       get_user_or_redirect
       user||=@user
     #Finish setting default options
+    puts "SECURITY VIOLATION: User #{user.inspect} tried to access object: #{object.inspect} at #{Time.now} \n "\
+    "that resource belongs to #{object.user.try(:inspect)}. " unless (user==object||user.owns?(object))
+    
     redirect_to root_path, flash:{error:"Not enough permissions"} unless (user==object||user.owns?(object)||options[:no_redirect])
     return (user==object||user.owns?(object))
   end

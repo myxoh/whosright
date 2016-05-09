@@ -1,4 +1,5 @@
 class DiscussionsController < ApplicationController
+  include VotableController
   before_action :set_discussion, only: [:show, :edit, :update, :destroy]
   before_action :get_user_or_redirect
   before_action :only_admin, only:[:index] 
@@ -69,6 +70,10 @@ class DiscussionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_discussion
       @discussion = Discussion.find(params[:id])
+    end
+    def set_votable
+      set_discussion
+      @votable=@discussion
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.

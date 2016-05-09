@@ -4,16 +4,15 @@ one:
   first_name: Nicolas
   last_name: Klein
   email: first@user.com
-  password_digest: MyString
-
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
 two:
   first_name: Juan
   last_name: Carlos
   email: second@user.com
-  password_digest: MyString
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   
-three:
+no_permissions:
   first_name: No
   last_name: Permissions
   email: irrelevant@user.com
-  password_digest: MyString
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>

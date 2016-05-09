@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
-  before_action :get_user
+  before_action :get_user, only: [:redirect]
   def new
+    initial_config
   end
   
   def create
@@ -16,7 +17,8 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    @user=nil
+    #There seemed to be a bug with this, therefore I'm reinitializating the isntance
+    initial_config
     redirect_to login_path
   end
 

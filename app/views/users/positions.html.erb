@@ -1,0 +1,11 @@
+<div class="page-header">
+	<h1>You have been invited to take place in the following discussions:</h1>
+</div>
+	<div class="body">
+		<%@positions.each_slice(3).each do |row|%>
+			<div class="row">
+				<%=render partial:"discussion", collection: row, as: :position%>
+			</div>
+		<%end%>
+	 </div>			  
+</div>

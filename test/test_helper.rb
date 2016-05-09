@@ -22,8 +22,8 @@ class ActiveSupport::TestCase
     if block_given?
       local_test.call()
     end
-    assert_redirected_to root_path
-    assert_match("permission",flash[:error])
+    assert_redirected_to root_path, "Didn't get redirected from #{wrong_user.inspect}"
+    assert_match("permission",flash[:error], "Didn't get permission errors from #{wrong_user.inspect}")
   end
   
   # Add more helper methods to be used by all tests here...

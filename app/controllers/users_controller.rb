@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :positions]
   before_action :only_admin, only: [:index, :destroy] #Only Administrators can list all users or destroy them
-  before_action :user_match, only: [:edit, :update] # Only the user should have access to this content
-  before_action :get_user_or_redirect, only: [:show, :edit, :update, :by_email] #Only show the profiles to logged in users.
+  before_action :get_user_or_redirect, only: [:show, :edit, :update, :by_email, :positions] #Only show the profiles to logged in users.
   before_action :config_email_disabled, only: [:edit, :update]
+  before_action :user_match, only: [:edit, :update] # Only the user should have access to this content
+
   # GET /users
   # GET /users.json
   def index
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
   end
   
   def by_email
-    @user=User.find(User.find_by_email(params[:user][:email]).try(:id)) #Force 404 if user doesn't exist
+    @requested_user=User.find(User.find_by_email(params[:user][:email]).try(:id)) #Force 404 if user doesn't exist
     show_user
   end
 
@@ -58,6 +59,10 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def positions
+    @positions=@requested_user.positions.includes(:discussion, discussion:[:user])
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json
@@ -72,12 +77,12 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @requested_user = User.find(params[:id])
     end
     def show_user
       respond_to do |format|
         format.html {render 'show'}
-        format.json {render json:@user}
+        format.json {render json:@requested_user}
       end
     end
     
@@ -86,9 +91,8 @@ class UsersController < ApplicationController
     end
     
     def user_match
-      requested_access_to=@user
-      get_user #Get Logged in User
-      (@user==requested_access_to)? true : redirect_to(root_path,{flash:{error:"Not enough permissions to do this"}})
+      (@requested_user==@user)? true : redirect_to(root_path,{flash:{error:"Not enough permissions to do this"}})
+      #TODO user the already created match from UserPermissions
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

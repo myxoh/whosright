@@ -2,10 +2,7 @@ require 'test_helper'
 class DiscussionsControllerTest < ActionController::TestCase
   setup do
     @discussion = discussions(:one)
-    log_in(users(:one))
-    @discussion.update(user:users(:one))
-    @discussion.update(topic:topics(:one))
-    @discussion.update(type:discussion_types(:one))
+    log_in(@discussion.user) # User one
   end
 
   def edit_test
@@ -35,7 +32,6 @@ class DiscussionsControllerTest < ActionController::TestCase
   end
   
   test "should not get index" do #We do not want this page
-   
     get :index
     assert_redirected_to root_path
     assert_match("permissions",flash[:error])
@@ -85,8 +81,16 @@ class DiscussionsControllerTest < ActionController::TestCase
     not_enough_permissions_assertion(users(:two)){destroy_test(false)}
   end
   
-  test "should allow editing positions, should show positions" do
-    assert false
+  test "should allow should show positions" do
+    get :show, id: @discussion
+    assert !assigns(:discussion).positions.blank? #Should have the positions feeded in the test
+  end
+  
+  test "JS search for user"  do
+    #TODO Check the different interaction with the e-mail (finding an user, not finding him)
+    #require_js
+    #TODO CHECK that in both cases I'm allowed to invite him.
+    #assert false
   end
   
 end
