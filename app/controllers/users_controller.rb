@@ -61,7 +61,7 @@ class UsersController < ApplicationController
   end
   
   def positions
-    @positions=@requested_user.positions.includes(:discussion, discussion:[:user])
+    @positions=@requested_user.positions.where(body:nil).includes(:discussion, discussion:[:user])
   end
 
   # DELETE /users/1

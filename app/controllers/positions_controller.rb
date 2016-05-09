@@ -60,8 +60,8 @@ class PositionsController < ApplicationController
   def update
     respond_to do |format|
       if @position.update(edit_position_params)
-        format.html { redirect_to @position, notice: 'Position was successfully updated.' }
-        format.json { render :show, status: :ok, location: @position }
+        format.html { redirect_to @position.discussion, notice: 'Position was successfully updated.' }
+        format.json { render :show, status: :ok, location: @position.discussion }
       else
         format.html { render :edit }
         format.json { render json: @position.errors, status: :unprocessable_entity }
