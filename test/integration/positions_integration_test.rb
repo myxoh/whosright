@@ -71,17 +71,17 @@ class PositionsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit only for correct user" do
-    #assert false
+    assert false
   end
 
   test "should update position only for correct user" do
-    #assert false
+    assert false
     #patch :update, id: @position, position: { body: @position.body, discussion_id: @position.discussion_id, email: @position.email, name: @position.name, score: @position.score }
     #assert_redirected_to position_path(assigns(:position))
   end
   
   test "should update only the correct params" do
-    #assert false
+    assert false
   end
 
   test "should destroy only for correct users" do
@@ -90,6 +90,6 @@ class PositionsIntegrationTest < ActionDispatch::IntegrationTest
     #end
 
     #assert_redirected_to positions_path
-    #assert false
+    assert false
   end
 end

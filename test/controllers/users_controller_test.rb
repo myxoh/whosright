@@ -63,8 +63,15 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   test "Search tests" do
-    #assert false
+    assert false
   end
   
+  test "Positions tests" do
+    assert false
+  end
+  
+  test "Validate which params are updated" do
+    assert false
+  end
   
 end

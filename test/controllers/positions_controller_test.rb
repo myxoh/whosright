@@ -12,6 +12,8 @@ class PositionsControllerTest < ActionController::TestCase
   # => DO TO BUGS FOUND ON http://stackoverflow.com/questions/24209915/rails-functional-test-sending-url-query-parameters-in-post-request
   # => I ended up moving much of the testing to the integration test: PositionsIntegrationTest
   
+  # TODO move back here. Test.
+  
   test "should require to be logged in for all methods" do
     log_out()
     get :show, id: @position
@@ -24,6 +26,14 @@ class PositionsControllerTest < ActionController::TestCase
     get :index
     assert_redirected_to root_path
     assert_match("permission",flash[:error])
+  end
+  
+  test "vote up" do
+    assert false
+  end
+  
+  test "vote down" do
+    assert false
   end
 
 end
