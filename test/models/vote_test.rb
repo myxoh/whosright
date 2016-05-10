@@ -24,16 +24,15 @@ class VoteTest < ActiveSupport::TestCase
   end
   
   test "Validators:" do
-      remove_param_test("positive")
-      remove_param_test("user")
-      remove_param_test("votable")
-      remove_param_test("votable", @votes[1]) #Shouldn't make any difference.
+    remove_param_test("positive")
+    remove_param_test("user")
+    remove_param_test("votable")
+    remove_param_test("votable", @votes[1]) #Shouldn't make any difference.
   end
   
-  def assert_vote_worked difference, votable
-    old_score=votable.score
+  def assert_vote_worked difference, votable, old_score
     votable.reload
-    assert_equal(old_score-votable.score,difference)
+    assert_equal(votable.score-old_score,difference)
     return votable
   end
   
@@ -44,22 +43,24 @@ class VoteTest < ActiveSupport::TestCase
       #Is this necessary after having already tested in the controllers?? 
       v i
       votable=@vote.votable
+      initial_score=votable.score
       
       positive_params={positive:true,user:@user,votable:votable}
-      negatative_params={positive:false,user:@user,votable:votable}
+      negative_params={positive:false,user:@user,votable:votable}
       
       @vote.positive=true
       
       @vote.save
-      votable=assert_vote_worked(1, votable)
+
+      votable=assert_vote_worked(1, votable, initial_score)
       @vote.destroy
-      votable=assert_vote_worked(-1, votable)
-      @vote.create(positive_params)
-      votable=assert_vote_worked(1, votable)
+      votable=assert_vote_worked(0, votable, initial_score)
+      @vote=Vote.create(positive_params)
+      votable=assert_vote_worked(1, votable, initial_score)
       @vote.update(negative_params)
-      votable=assert_vote_worked(-2, votable)     
+      votable=assert_vote_worked(-1, votable, initial_score)     
       @vote.destroy
-      votable=assert_vote_worked(+1, votable)
+      votable=assert_vote_worked(0, votable, initial_score)
       
     end
     

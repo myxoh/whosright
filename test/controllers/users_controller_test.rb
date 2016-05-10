@@ -63,15 +63,22 @@ class UsersControllerTest < ActionController::TestCase
   end
   
   test "Search tests" do
-    assert false
+    user=users(:two)
+    get :by_email, user:{email: user.email}
+    assert_response :success
+    assert_equal assigns(:requested_user), user
+    
+    get :by_email, user:{email: user.email}, format: 'json'
+    assert_response :success
+    
+    assert_raises(Exception){get :by_email, user:{email: "invalid@user.email"}}
   end
   
   test "Positions tests" do
-    assert false
+    get :positions, id:@user
+    assert_equal assigns(:positions), @user.positions.where(body:nil)
+    
   end
   
-  test "Validate which params are updated" do
-    assert false
-  end
   
 end

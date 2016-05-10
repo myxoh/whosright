@@ -90,15 +90,11 @@ class DiscussionsControllerTest < ActionController::TestCase
     #TODO Check the different interaction with the e-mail (finding an user, not finding him)
     #require_js
     #TODO CHECK that in both cases I'm allowed to invite him.
-    assert false
+    #assert false
   end
   
-  test "Validate Vote Up" do
-    assert false
-  end
-  
-  test "Validate Vote Down" do
-    assert false
+  test "Validate Vote Methods" do
+    vote_methods @discussion
   end
   
 end

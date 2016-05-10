@@ -10,12 +10,12 @@ class DiscussionTest < ActiveSupport::TestCase
     global_remove_param_test param, discussion
   end
   
-  def too_long_param( param, discussion = @discussion)
-    global_too_long_param( param, discussion)
+  def too_long_param( param, length,  discussion = @discussion)
+    global_too_long_param( param, length, discussion)
   end
   
-  def too_short_param( param, discussion = @discussion)
-    global_too_short_param( param, discussion)
+  def too_short_param( param, length, discussion = @discussion)
+    global_too_short_param( param, length, discussion)
   end
   
   test "should be valid" do
@@ -29,6 +29,10 @@ class DiscussionTest < ActiveSupport::TestCase
     remove_param_test("type")
     too_short_param(:header,5)
     too_long_param(:header,50)
+  end
+  
+  test "validate votes" do
+    validate_votes @discussion
   end
   
 end

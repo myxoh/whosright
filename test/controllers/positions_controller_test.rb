@@ -153,43 +153,10 @@ class PositionsControllerTest < ActionController::TestCase
     not_enough_permissions_assertion(users(:no_permissions)){destroy_test @position, false}
   end
   
-  def vote_assertion new_score, position = @position
-    assert_response :success
-    position.reload
-    position_assigns=assigns(:position)
-    position_json=JSON.parse(@response.body)
-    assert_equal new_score, position_assigns.score
-    assert_equal position_assigns.score, position.score
-    assert_equal position.score, position_json["score"]
-    assert_equal position_json["class"], position["class"]
-  end
-  
+
    
-  test "votes" do
-    #First time should update the score +1 (1)
-    old_score=@position.score
-    get :vote_up, id:@position
-    vote_assertion old_score+1
-    
-    #Vote down should now update the score -2 (-1)
-    get :vote_down, id:@position
-    vote_assertion old_score-1
-    
-    #Vote down again should update the score +1 (0)
-    get :vote_down, id:@position
-    vote_assertion old_score
-    
-    #Vote down again should update the score -1 (-1)
-    get :vote_down, id:@position
-    vote_assertion old_score-1
-    
-    #Vote up should update the score +2         (+1)
-    get :vote_up, id:@position
-    vote_assertion old_score+1
-    
-    #Finally vote up again should restore the score
-    get :vote_up, id:@position
-    vote_assertion old_score
+  test "vote_up and vote_down test" do
+    vote_methods @position
   end
 
 end
