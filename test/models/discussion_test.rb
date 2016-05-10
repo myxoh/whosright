@@ -7,24 +7,15 @@ class DiscussionTest < ActiveSupport::TestCase
 
 
   def remove_param_test( param, discussion = @discussion )
-    old_param=discussion.send(param)
-    discussion.send("#{param}=",nil)
-    assert_not discussion.valid?
-    discussion.send("#{param}=",old_param)
+    global_remove_param_test param, discussion
   end
   
-  def too_short_param( param, length, discussion = @discussion )
-    discussion[param]="a"*(length)
-    assert discussion.valid?, "#{param}  wasn't Less than the minimum (#{length})"
-    discussion[param]="a"*(length-1)
-    assert_not discussion.valid?, "#{param}  was Less than the minimum (#{length})"
+  def too_long_param( param, discussion = @discussion)
+    global_too_long_param( param, discussion)
   end
   
-  def too_long_param( param, length, discussion = @discussion )
-    discussion[param]="a"*(length)
-    assert discussion.valid?, "#{param} was more than the maximum (#{length})"
-    discussion[param]="a"*(length+1)
-    assert_not discussion.valid?, "#{param}  wasn't more than the maximum (#{length})"
+  def too_short_param( param, discussion = @discussion)
+    global_too_short_param( param, discussion)
   end
   
   test "should be valid" do

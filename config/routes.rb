@@ -10,7 +10,7 @@ Rails.application.routes.draw do
  
 
   resources :discussions, concerns: :votable do
-    resources :positions
+    resources :positions, only: [:new, :create]
   end
   
   resources :users do

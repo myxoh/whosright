@@ -2,20 +2,20 @@
 
 one:
   discussion: one
-  email: first@user.com #User one
-  name: MyString
-  body: MyText
+  email: second@user.com #User two - To test with a different owner than the Discussion Owner
+  name: MyString1
+  body: MyText1
   score: 0
 
 two:
   discussion: one
   email: first@user.com #User one
-  name: MyString
-  body: MyText
+  name: MyString2
+  body: MyText2
   score: 0
 three:
   discussion: one
   email: valid@email.com #No user
-  name: MyString
-  body: MyText
+  name: MyString3
+  body: MyText3
   score: 0
