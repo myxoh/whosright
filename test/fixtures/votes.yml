@@ -1,11 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  positive: true
+  user: votes_one
+  votable: one (Discussion)
+
+one-two:                #In order to get the score to match the votes
   positive: false
-  votable_id: 
-  votable_type: Votable
+  user: votes_two
+  votable: one (Discussion)
+
 
 two:
+  positive: true
+  user: votes_one
+  votable: one (Position)
+
+two-two:                #In order to get the score to match the votes
   positive: false
-  votable_id: 
-  votable_type: Votable
+  user: votes_two
+  votable: one (Position)

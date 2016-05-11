@@ -13,6 +13,7 @@ two:
   name: MyString2
   body: MyText2
   score: 0
+
 three:
   discussion: one
   email: valid@email.com #No user

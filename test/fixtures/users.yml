@@ -16,3 +16,16 @@ no_permissions:
   last_name: Permissions
   email: irrelevant@user.com
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+
+votes_one:
+  first_name: Nicolas
+  last_name: Klein
+  email: votes_first@user.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+votes_two:
+  first_name: Nicolas
+  last_name: Klein
+  email: votes_second@user.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>

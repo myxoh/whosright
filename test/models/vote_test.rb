@@ -9,6 +9,7 @@ class VoteTest < ActiveSupport::TestCase
     @votes[0]=Vote.new(positive:true,user:@user,votable:@discussion)
     @votes[1]=Vote.new(positive:true,user:@user,votable:@position)
   end
+  
   def v i
     @vote=@votes[i]
   end
@@ -34,6 +35,14 @@ class VoteTest < ActiveSupport::TestCase
     votable.reload
     assert_equal(votable.score-old_score,difference)
     return votable
+  end
+  
+  def casted_method_assertion hash
+    vote=Vote.find_by(hash)
+    assert_equal Vote.casted(hash), vote
+    assert_equal Vote.casted?(hash), !vote.nil?
+    assert_equal Vote.casted_up?(hash), !!vote.try(:positive)
+    assert_equal Vote.casted_down?(hash), !vote.nil?&&!vote.try(:positive)
   end
   
   #Tests for both votable elements
@@ -62,6 +71,22 @@ class VoteTest < ActiveSupport::TestCase
       @vote.destroy
       votable=assert_vote_worked(0, votable, initial_score)
       
+    end
+    
+    
+    test "casted methods"+i.to_s do
+      v i
+      votable=@vote.votable
+      hash={votable:votable,user:User.first}
+      casted_method_assertion hash
+      hash={votable:votable,user:User.second}
+      casted_method_assertion hash
+      hash={votable:nil,user:User.first}
+      casted_method_assertion hash
+      hash={votable:votable,user:nil}
+      casted_method_assertion hash
+      hash={votable:nil,user:nil}
+      casted_method_assertion hash
     end
     
     test "Validate CRUD method"+i.to_s do
