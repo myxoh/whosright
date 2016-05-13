@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :discussions, concerns: :votable do
     resources :positions, only: [:new, :create]
+    member do
+      get 'publish'
+    end
   end
   
   resources :users do
@@ -18,11 +21,11 @@ Rails.application.routes.draw do
     member do
       get 'positions'
     end
+    collection do
+      get 'by_email'
+    end
   end
   
-  
-  #Speecial interactions with resources
-  get 'users_by/email' => 'users#by_email'
 
   #Login / Logout options
   get 'login' => 'sessions#new'

@@ -15,3 +15,12 @@ two:
   type: couple
   score: 0
   topic: science
+
+three:
+  user: two
+  header: MyString2
+  body: MyText2
+  type: couple
+  score: 0
+  topic: science
+  published: true

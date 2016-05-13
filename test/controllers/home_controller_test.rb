@@ -13,7 +13,8 @@ class HomeControllerTest < ActionController::TestCase
   end
   
   test "should have Valid stories" do
-    
+    get :stories
+    assert_equal assigns(:discussions), Discussion.where(published:true)
   end
   
 end

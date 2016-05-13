@@ -35,4 +35,18 @@ class DiscussionTest < ActiveSupport::TestCase
     validate_votes @discussion
   end
   
+  test "publish! (don't allow editing anymore)" do
+    @discussion.publish!
+    assert_not_nil @discussion.id, "Discussion wasn't saved"
+    assert_equal @discussion.published, true, "Discussion wasn't published"
+    assert_not @discussion.valid?, "Discussion shouldn't be saveable"
+  end
+  
+  
+  
+  test "self.published" do
+    assert_equal Discussion.published, Discussion.where(published:true)
+  end
+  
+  
 end

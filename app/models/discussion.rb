@@ -7,13 +7,25 @@ class Discussion < ActiveRecord::Base
   validates :user, presence: true
   validates :topic, presence: true
   validates :type, presence: true
+  validates :published, absence: { message: " Problem: Discussion is already published" }
   has_many :positions
+  scope :published, ->{where(published:true)}
   def editable? user
     user.owns?(self)&&editable_conditions?
   end
   
+  #Just in case
+  def publish_without_saving
+    update_attribute(:published,true)
+  end
+  
+  def publish!
+    save
+    update_attribute(:published,true)
+  end
+  
   private
   def editable_conditions?
-    !self.id.nil?&&self.score.to_i<5
+    !id.nil?&&!published
   end
 end

@@ -4,19 +4,7 @@
     <%= message %>
   </div>
 <% end %>
-<% if @user&&@user.errors.any? then%>
-	<%@user.errors.full_messages.each do |error|%>
-	  <div class="alert <%= bootstrap_class_for("error") %> fade in">
-	    <button class="close" data-dismiss="alert">×</button>
-	    <%= error %>
-	  </div>
-	<%end%>
-<% end %>
-<% if @discussion&&@discussion.errors.any? then%>
-	<%@discussion.errors.full_messages.each do |error|%>
-	  <div class="alert <%= bootstrap_class_for("error") %> fade in">
-	    <button class="close" data-dismiss="alert">×</button>
-	    <%= error %>
-	  </div>
-	<%end%>
-<% end %>
+
+<%=list_errors @user%>
+<%=list_errors @discussion%>
+<%=list_errors @position%>

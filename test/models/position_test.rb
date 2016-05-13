@@ -29,5 +29,16 @@ class PositionTest < ActiveSupport::TestCase
     validate_votes @position
   end
   
+  test "validate allow position only on unpublished content" do
+    @position.discussion.publish!
+    assert_not @position.valid?, "Creating a new position on a published content!"
+  end
+  
+  test "validate edit position only on unpublished content" do
+    @position.save
+    @position.discussion.publish!
+    assert_not @position.valid?, "Editing position on a published content!"
+  end  
+  
   
 end
