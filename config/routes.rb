@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   end
   resources :positions, except: [:new, :create], concerns: :votable
   
- 
-
   resources :discussions, concerns: :votable do
     resources :positions, only: [:new, :create]
     member do
@@ -26,26 +24,17 @@ Rails.application.routes.draw do
     end
   end
   
-
   #Login / Logout options
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
+  get 'auth/:provider/callback', to: 'sessions#oauthcreate', as: :social_login
   get 'signup' => 'users#new'
+  get 'auth/failure', to: redirect('/')
+  
   get 'home' => 'home#stories'
-  
-  
-  
-  root 'sessions#redirect'
-  
 
-  #  namespace :api do
-  #    namespace :v1 do
-  #
-  #      resources :discussions, shallow:true
-  #
-  #   end
-  #  end
+  root 'sessions#redirect'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

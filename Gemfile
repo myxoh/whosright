@@ -14,6 +14,10 @@ gem 'autoprefixer-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'has_secure_token'
 
+#Login In
+gem 'omniauth-oauth2'
+gem 'omniauth-facebook' #TODO add other social logins.
+
 #Server
 gem 'passenger'
 

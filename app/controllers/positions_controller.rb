@@ -6,18 +6,17 @@ class PositionsController < ApplicationController
   before_action only: [:edit, :update] do
     match_user(@position)
   end
-  before_action only:[:new, :create] do
+  before_action only: [:new, :create] do
     set_discussion
     match_user(@discussion)
     #editable?(@discussion) #Only the owner of the discussion can create positions
   end
   before_action only: [:destroy] do
     set_discussion
-    custom_conditions(match_user(@discussion,no_redirect:true)||match_user(@position,no_redirect:true))
+    custom_conditions(match_user(@discussion, no_redirect: true)||match_user(@position, no_redirect: true))
   end
-  
-  
-  
+
+
   # GET /positions
   # GET /positions.json
   def index
@@ -31,7 +30,7 @@ class PositionsController < ApplicationController
 
   # GET /positions/new
   def new
-    @position = Position.new(email:params[:email],discussion_id:params[:discussion_id])
+    @position = Position.new(email: params[:email], discussion_id: params[:discussion_id])
   end
 
   # GET /positions/1/edit
@@ -45,7 +44,7 @@ class PositionsController < ApplicationController
 
     respond_to do |format|
       if @position.save
-  
+
         format.html { redirect_to @position.discussion, notice: 'Position was successfully created.' }
         format.json { render :show, status: :created, location: @position.discussion }
       else
@@ -80,23 +79,26 @@ class PositionsController < ApplicationController
   end
 
   private
-    def set_discussion
-      @discussion = Discussion.find_by(id:params[:discussion_id])
-      @discussion||=@position.discussion
-    end
-    def set_position
-      @position = Position.find(params[:id])
-    end
-    def set_votable
-      set_position
-      @votable=@position
-    end
+  def set_discussion
+    @discussion = Discussion.find_by(id: params[:discussion_id])
+    @discussion||=@position.discussion
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def create_position_params
-      params.require(:position).permit(:discussion_id, :email)
-    end
-    def edit_position_params
-      params.require(:position).permit(:name, :body)
-    end
+  def set_position
+    @position = Position.find(params[:id])
+  end
+
+  def set_votable
+    set_position
+    @votable=@position
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def create_position_params
+    params.require(:position).permit(:discussion_id, :email)
+  end
+
+  def edit_position_params
+    params.require(:position).permit(:name, :body)
+  end
 end

@@ -2,8 +2,8 @@ class DiscussionsController < ApplicationController
   include VotableController
   before_action :set_discussion, only: [:show, :edit, :update, :destroy]
   before_action :get_user_or_redirect
-  before_action :only_admin, only:[:index] 
-  before_action only:[:edit,:destroy,:update] do
+  before_action :only_admin, only: [:index]
+  before_action only: [:edit, :destroy, :update] do
     match_user(@discussion)
   end
   # GET /discussions
@@ -15,8 +15,8 @@ class DiscussionsController < ApplicationController
   # GET /discussions/1
   # GET /discussions/1.json
   def show
-    @published_positions=@discussion.positions.where.not(body:nil)
-    @unpublished_positions=@discussion.positions.where(body:nil)
+    @published_positions=@discussion.positions.where.not(body: nil)
+    @unpublished_positions=@discussion.positions.where(body: nil)
   end
 
   # GET /discussions/new
@@ -69,17 +69,18 @@ class DiscussionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_discussion
-      @discussion = Discussion.find(params[:id])
-    end
-    def set_votable
-      set_discussion
-      @votable=@discussion
-    end
-    
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def discussion_params
-      params.require(:discussion).permit(:header, :body, :discussion_type_id, :topic_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_discussion
+    @discussion = Discussion.find(params[:id])
+  end
+
+  def set_votable
+    set_discussion
+    @votable=@discussion
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def discussion_params
+    params.require(:discussion).permit(:header, :body, :discussion_type_id, :topic_id)
+  end
 end

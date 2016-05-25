@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508131514) do
+ActiveRecord::Schema.define(version: 20160515122259) do
 
   create_table "discussion_types", force: :cascade do |t|
     t.string   "name"
@@ -63,8 +63,12 @@ ActiveRecord::Schema.define(version: 20160508131514) do
     t.string   "last_name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   create_table "votes", force: :cascade do |t|

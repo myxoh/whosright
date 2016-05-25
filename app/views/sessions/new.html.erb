@@ -10,6 +10,7 @@
       	 <%= f.label :remember, f.check_box(:remember)+" Remember Me" %>
       </div>
       <%= f.submit "Log In", class: "btn btn-success" %><br>
+      <%= link_to span(image_tag('facebook-button.png',alt:"Facebook Log In"),class:'helper'), social_login_path(provider: "facebook"), class:'big-button facebook'%><br>
       or<br>
       <%= link_to "Sign up!",signup_path , class:"btn btn-primary anchor"%>
 <%end%>

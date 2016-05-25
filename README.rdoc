@@ -15,7 +15,8 @@ Backend:
 GEMs:
 * bcrypt
 * passenger
-* bootstrap (and dependences)
+* bootstrap (and dependences)\
+* omniauth (Facebook)
 
 Ways of working:
 * DRY, TDD (Unit and Functional tests implemented, Integration Tests not yet implemented) , Concerns, Services (not yet implemented), Polymorphic ActiveRecord relationships
@@ -30,6 +31,15 @@ Have Ruby and Rails versions installed for the correct versions
 
 * bundle install
 * rake db:setup
+* Configure your Facebook omniauth in initializers/omniauth.rb with the following code:
+<tt>
+
+OmniAuth.config.logger = Rails.logger
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :facebook, '_YOURAPIHERE_', '_YOURAPISECRETEHERE_', info_fields: 'email, name, first_name, last_name'
+end
+</tt>
 * Add as many additional Topics and DiscussionTypes as you want (Read Adding Topics and Discussion Types)
 * Make sure everything's ok by running the tests rake:test (As of the latest commit on 2016/05/13 you should get 
 69 runs, 305 assertions, 0 failures, 0 errors, 0 skips)
@@ -43,7 +53,3 @@ Adding Topics and Discussion Types:
 * rails c (optional -production if running in production)
 * Topic.create(name:"/*PUT THE TOPIC HERE*/")
 * DiscussionType.create(name:"/*PUT THE DISCUSSION TYPE HERE*/")
-
-
-
-<tt>rake doc:app</tt>.
