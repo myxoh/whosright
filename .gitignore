@@ -32,7 +32,6 @@ pickle-email-*.html
 config/initializers/secret_token.rb
 config/initializers/omniauth.rb
 config/secrets.yml
-c
 
 ## Environment normalization:
 /.bundle

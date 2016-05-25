@@ -1,0 +1,29 @@
+.big-button{
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  display: block;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  letter-spacing: 0.2em;
+  -webkit-transition: color 300ms ease-in, background-color 300ms ease-in, border 300ms ease-in;
+    transition: color 300ms ease-in, background-color 300ms ease-in, border 300ms ease-in;
+  margin-bottom: 15px;
+  &.facebook{
+   background-color: #113381;
+   padding: 0;
+   img{
+     width: 100%;
+     vertical-align: middle;
+     max-width: 400px;
+   }
+   &:hover{
+     background-color: #1c4ec3;
+   }
+ }
+}
