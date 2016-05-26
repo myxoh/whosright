@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :get_user, only: [:redirect]
+
   def new
     initial_config
   end
@@ -16,16 +17,16 @@ class SessionsController < ApplicationController
   end
 
   def oauthcreate
-    auth_info = env["omniauth.auth"]
-    if user = User.from_omniauth(auth_info) then
-      log_in user, notice: "Successfully logged in"
-    else
-      redirect_to login_path, flash:{error: "That e-mail is already in use."}
-    end
+    byebug
+    user = User.from_omniauth(env["omniauth.auth"])
+    log_in user
+    redirect_to '/home/search?email='+user.email.to_s+'&temporary_access_code='+random_string.to_s
   end
 
   def destroy
     session.delete(:user_id)
+    #There seemed to be a bug with this, therefore I'm reinitializating the isntance
+    initial_config
     redirect_to login_path
   end
 

@@ -8,6 +8,8 @@ source 'https://rubygems.org'
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'rails-assets-tether', '>= 1.1.0'
 gem 'autoprefixer-rails'
+gem 'bootstrap-social-rails'
+gem 'font-awesome-rails'
 # Functionality:
 
 # Security:
@@ -15,7 +17,6 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'has_secure_token'
 
 #Login In
-gem 'omniauth-oauth2'
 gem 'omniauth-facebook' #TODO add other social logins.
 
 #Server

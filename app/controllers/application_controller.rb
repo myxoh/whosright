@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   include UserPermissions
 
   def initial_config
-    @config=initial_settings
+    @config =initial_settings
     @user=nil
   end
 

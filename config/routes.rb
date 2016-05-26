@@ -28,7 +28,9 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-  get 'auth/:provider/callback', to: 'sessions#oauthcreate', as: :social_login
+  
+  get 'auth/:provider', to: redirect('/auth/%{provider}'), as: :social_login
+  get 'auth/:provider/callback', to: 'sessions#oauthcreate'
   get 'signup' => 'users#new'
   get 'auth/failure', to: redirect('/')
   
