@@ -2,7 +2,6 @@ class PositionsController < ApplicationController
   include VotableController
   before_action :set_position, only: [:show, :edit, :update, :destroy]
   before_action :get_user_or_redirect
-  before_action :only_admin, only: [:index]
   before_action only: [:edit, :update] do
     match_user(@position)
   end
@@ -20,7 +19,8 @@ class PositionsController < ApplicationController
   # GET /positions
   # GET /positions.json
   def index
-    @positions = Position.all
+    @from_user = User.find(params[:user_id])
+    @positions=@from_user.positions.where(body:nil).includes(:discussion, discussion:[:user])
   end
 
   # GET /positions/1

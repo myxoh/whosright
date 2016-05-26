@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
   
   def owns?(object)
-    self==object.try(:user)
+    self==object.try(:user) || self==object
   end
   
   def as_json(options={}) #Prevent key attributes to be sent in the JSON

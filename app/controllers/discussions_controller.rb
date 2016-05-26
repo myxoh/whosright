@@ -1,15 +1,16 @@
 class DiscussionsController < ApplicationController
   include VotableController
-  before_action :set_discussion, only: [:show, :edit, :update, :destroy]
+  before_action :set_discussion, only: [:show, :edit, :update, :destroy, :publish]
   before_action :get_user_or_redirect
-  before_action :only_admin, only: [:index]
   before_action only: [:edit, :destroy, :update] do
     match_user(@discussion)
   end
   # GET /discussions
   # GET /discussions.json
   def index
-    @discussions = Discussion.all
+    @from_user = User.find(params[:user_id])
+    @published = @from_user.discussions.published
+    @unpublished = @from_user.discussions.unpublished
   end
 
   # GET /discussions/1
@@ -18,7 +19,12 @@ class DiscussionsController < ApplicationController
     @published_positions=@discussion.positions.where.not(body: nil)
     @unpublished_positions=@discussion.positions.where(body: nil)
   end
-
+  
+  def publish
+    @discussion.publish!
+    redirect_to discussion_path(@discussion), flash:notice{"Published!"}
+  end
+  
   # GET /discussions/new
   def new
     @discussion = Discussion.new

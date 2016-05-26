@@ -60,9 +60,6 @@ class UsersController < ApplicationController
     end
   end
   
-  def positions
-    @positions=@requested_user.positions.where(body:nil).includes(:discussion, discussion:[:user])
-  end
 
   # DELETE /users/1
   # DELETE /users/1.json

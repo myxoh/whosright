@@ -10,6 +10,7 @@ class Discussion < ActiveRecord::Base
   validates :published, absence: { message: " Problem: Discussion is already published" }
   has_many :positions
   scope :published, ->{where(published:true)}
+  scope :unpublished, ->{where(published:nil)}
   def editable? user
     user.owns?(self)&&editable_conditions?
   end

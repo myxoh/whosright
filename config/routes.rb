@@ -5,33 +5,36 @@ Rails.application.routes.draw do
       get 'vote_down'
     end
   end
-  resources :positions, except: [:new, :create], concerns: :votable
   
-  resources :discussions, concerns: :votable do
-    resources :positions, only: [:new, :create]
-    member do
-      get 'publish'
-    end
+  resources :discussions, only: [:new, :create] do #Allowed creating new items only from logged user
+    resources :positions, shallow: true, concerns: :votable
   end
   
   resources :users do
-    resources :discussions
-    member do
-      get 'positions'
-    end
     collection do
       get 'by_email'
+    end
+    resources :positions, only: [:index] do
+      #TODO allow showing all positions / Change current index to collection action 'invitations' and restore normal index functionality
+    end
+    resources :discussions, except: [:new, :create], shallow: true, concerns: :votable do 
+      member do
+        get 'publish'
+      end
+      resources :positions, shallow: true, concerns: :votable
     end
   end
   
   #Login / Logout options
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
+  
+  get 'signup' => 'users#new'
+  
   delete 'logout' => 'sessions#destroy'
   
   get 'auth/:provider', to: redirect('/auth/%{provider}'), as: :social_login
   get 'auth/:provider/callback', to: 'sessions#oauthcreate'
-  get 'signup' => 'users#new'
   get 'auth/failure', to: redirect('/')
   
   get 'home' => 'home#stories'

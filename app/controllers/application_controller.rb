@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def logged_in_configurations
     @config[:header]=logged_header
-    discussions=Discussion.where("created_at >'#{new_discussions_time_definition}'").count #new_discussions_time_definition defined in ConfigConstants
+    discussions=Discussion.published.where("created_at > ?",new_discussions_time_definition).count #new_discussions_time_definition defined in ConfigConstants
     @config[:discussions]=(discussions>99) ? "99+" : discussions
     invitations=@user.positions.where(body: nil)
     @config[:invitations]=invitations.count

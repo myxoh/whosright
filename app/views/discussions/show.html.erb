@@ -1,6 +1,6 @@
 <div class="article">
 	<div class="header">
-		<center><h1><%=@discussion.header%> <%if @discussion.published%> (Unpublished) <%end%></h1>
+		<center><h1><%=@discussion.header%> <%if !@discussion.published%> (Unpublished) <%end%></h1>
 		<p><ul><li><%=@discussion.type.name%></li><li><%=@discussion.topic.name%></li></ul> </p>
 		<p>By user: <%=link_to_user(@discussion.user)%> | Score: <b><%=@discussion.score.to_i%></b>
 		    | <%=if owns?(@discussion) then link_to 'Edit', edit_discussion_path(@discussion) end%></p>
@@ -13,7 +13,7 @@
 			<%@index=1%>
 			<%@published_positions.each_slice(2) do |row|%>
 			<div class="row">
-				<%=render partial:'position', collection: row%>
+				<%=render partial:'positions/position', collection: row%>
 			</div>
 			<%end%>
 		</div>
@@ -21,7 +21,7 @@
 			<div class="container">
 				<%@unpublished_positions.each_slice(2) do |row|%>
 				<div class="row">
-					<%=render partial:'position', collection: row%>
+					<%=render partial:'positions/position', collection: row%>
 				</div>
 				<%end%>
 			</div>
