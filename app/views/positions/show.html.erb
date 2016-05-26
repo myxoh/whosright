@@ -1,28 +1,30 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Discussion:</strong>
-  <%= @position.discussion %>
+<p id="notice">
+	<%= notice %>
 </p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @position.email %>
+	<strong>Discussion:</strong>
+	<%= @position.discussion %>
 </p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @position.name %>
+	<strong>Email:</strong>
+	<%= @position.email %>
 </p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @position.body %>
+	<strong>Name:</strong>
+	<%= @position.name %>
 </p>
 
 <p>
-  <strong>Score:</strong>
-  <%= @position.score %>
+	<strong>Body:</strong>
+	<%= @position.body %>
+</p>
+
+<p>
+	<strong>Score:</strong>
+	<%= @position.score %>
 </p>
 
 <%= link_to 'Edit', edit_position_path(@position) %> |

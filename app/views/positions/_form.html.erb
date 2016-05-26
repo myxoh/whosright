@@ -1,15 +1,16 @@
-<%= form_for(@position, class:"form-publish") do |f| %>
-<h1><%=@config[:h1]%></h1>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name,  class:"form-control", placeholder:"Anonymous Name for your position"%>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body,  class:"form-control"%>
-  </div>
-  <div class="actions">
-    <%= f.submit class:"btn btn-primary" %>
-  </div>
+<%= form_for(@position, class:"form-publish") do |f| %> <h1><%= @config[:h1]%></h1>
+<div class="field">
+	<%= f.label :name %>
+	<br>
+	<%= f.text_field :name,  class:"form-control", placeholder:"Anonymous Name for your position"%>
+</div>
+<div class="field">
+	<%= f.label :body %>
+	<br>
+	<%= f.text_area :body,  class:"form-control"%>
+</div>
+<div class="actions">
+	<%= f.submit class:"btn btn-primary" %>
+</div>
 <% end %>
 

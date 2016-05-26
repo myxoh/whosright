@@ -8,16 +8,16 @@ class ApplicationController < ActionController::Base
   include UserPermissions
 
   def initial_config
-    @config =initial_settings
-    @user=nil
+    @config = initial_settings
+    @user = nil
   end
 
   def logged_in_configurations
-    @config[:header]=logged_header
-    discussions=Discussion.published.where("created_at > ?",new_discussions_time_definition).count #new_discussions_time_definition defined in ConfigConstants
-    @config[:discussions]=(discussions>99) ? "99+" : discussions
-    invitations=@user.positions.where(body: nil)
-    @config[:invitations]=invitations.count
+    @config[:header] = logged_header
+    discussions = Discussion.published.where("created_at > ?", new_discussions_time_definition).count #new_discussions_time_definition defined in ConfigConstants
+    @config[:discussions] = (discussions > 99) ? "99+" : discussions
+    invitations = @user.positions.where(body: nil)
+    @config[:invitations] = invitations.count
   end
 
 end

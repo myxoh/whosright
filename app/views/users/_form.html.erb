@@ -1,20 +1,19 @@
-<%= form_for @user, class:"form-signin" do |f| %>
-<h1><%=@config[:h1]%></h1>
+<%= form_for @user, class:"form-signin" do |f| %> <h1><%= @config[:h1]%></h1>
 
-  	<%= f.label :email %>
-    <%= f.text_field :email,  class:"form-control", disabled:@config[:email_disabled] %>
-    
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name,  class:"form-control" %>
-    
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name,  class:"form-control" %>
-    
-	<%= f.label :password, "Password:" %>
-    <%= f.password_field :password,  class:"form-control"  %>
-    
-    <%= f.label :password_confirmation, "Password Confirmation:" %>
-    <%= f.password_field :password_confirmation,  class:"form-control"  %>
-    <br>
-    <%= f.submit class:"btn btn-primary"%>
+<%= f.label :email %>
+<%= f.text_field :email,  class:"form-control", disabled:@config[:email_disabled] %>
+
+<%= f.label :first_name %>
+<%= f.text_field :first_name,  class:"form-control" %>
+
+<%= f.label :last_name %>
+<%= f.text_field :last_name,  class:"form-control" %>
+
+<%= f.label :password, "Password:" %>
+<%= f.password_field :password,  class:"form-control"  %>
+
+<%= f.label :password_confirmation, "Password Confirmation:" %>
+<%= f.password_field :password_confirmation,  class:"form-control"  %>
+<br>
+<%= f.submit class:"btn btn-primary"%>
 <% end %>

@@ -1,8 +1,10 @@
 <% if element&&element.errors.any? then%>
-	<%element.errors.full_messages.each do |error|%>
-	  <div class="alert <%= bootstrap_class_for("error") %> fade in">
-	    <button class="close" data-dismiss="alert">×</button>
-	    <%= error %>
-	  </div>
-	<%end%>
+<%element.errors.full_messages.each do |error|%>
+<div class="alert <%= bootstrap_class_for("error") %> fade in">
+	<button class="close" data-dismiss="alert">
+		×
+	</button>
+	<%= error %>
+</div>
+<%end%>
 <% end %>

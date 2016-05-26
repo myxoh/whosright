@@ -1,19 +1,19 @@
 <p>
-  <strong>First name:</strong>
-  <%= @requested_user.first_name %>
+	<strong>First name:</strong>
+	<%= @requested_user.first_name %>
 </p>
 
 <p>
-  <strong>Last name:</strong>
-  <%= @requested_user.last_name %>
+	<strong>Last name:</strong>
+	<%= @requested_user.last_name %>
 </p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @requested_user.email %>
+	<strong>Email:</strong>
+	<%= @requested_user.email %>
 </p>
 <%if @user==@requested_user%>
 
-<%= link_to 'Edit', edit_user_path(@user) %> 
+<%= link_to 'Edit', edit_user_path(@user) %>
 
 <%end%>

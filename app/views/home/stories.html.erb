@@ -1,11 +1,11 @@
 <div class="page-header">
 	<h1>Random Debates</h1>
 </div>
-	<div class="body">
-		<%@discussions.each_slice(3).each do |row|%>
-			<div class="row">
-				<%=render partial:"discussions/discussion", collection: row%>
-			</div>
-		<%end%>
-	 </div>			  
+<div class="body">
+	<%@discussions.each_slice(3).each do |row|%>
+	<div class="row">
+		<%= render partial:"discussions/discussion", collection: row%>
+	</div>
+	<%end%>
+</div>
 </div>

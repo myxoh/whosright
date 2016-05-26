@@ -5,6 +5,7 @@ class DiscussionsController < ApplicationController
   before_action only: [:edit, :destroy, :update] do
     match_user(@discussion)
   end
+
   # GET /discussions
   # GET /discussions.json
   def index
@@ -16,15 +17,15 @@ class DiscussionsController < ApplicationController
   # GET /discussions/1
   # GET /discussions/1.json
   def show
-    @published_positions=@discussion.positions.where.not(body: nil)
-    @unpublished_positions=@discussion.positions.where(body: nil)
+    @published_positions = @discussion.positions.where.not(body: nil)
+    @unpublished_positions = @discussion.positions.where(body: nil)
   end
-  
+
   def publish
     @discussion.publish!
-    redirect_to discussion_path(@discussion), flash:notice{"Published!"}
+    redirect_to discussion_path(@discussion), flash:{notice: "Published!"}
   end
-  
+
   # GET /discussions/new
   def new
     @discussion = Discussion.new
@@ -38,7 +39,7 @@ class DiscussionsController < ApplicationController
   # POST /discussions.json
   def create
     @discussion = Discussion.new(discussion_params)
-    @discussion.user=@user
+    @discussion.user = @user
     respond_to do |format|
       if @discussion.save
         format.html { redirect_to @discussion, notice: 'Discussion was successfully created.' }
@@ -75,6 +76,7 @@ class DiscussionsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_discussion
     @discussion = Discussion.find(params[:id])

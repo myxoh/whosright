@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     if user = User.from_omniauth(auth_info) then
       log_in user, notice: "Successfully logged in"
     else
-      redirect_to login_path, flash:{error: "That e-mail is already in use."}
+      redirect_to login_path, flash: {error: "That e-mail is already in use."}
     end
   end
 

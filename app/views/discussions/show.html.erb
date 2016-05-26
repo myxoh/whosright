@@ -1,42 +1,61 @@
 <div class="article">
 	<div class="header">
-		<center><h1><%=@discussion.header%> <%if !@discussion.published%> (Unpublished) <%end%></h1>
-		<p><ul><li><%=@discussion.type.name%></li><li><%=@discussion.topic.name%></li></ul> </p>
-		<p>By user: <%=link_to_user(@discussion.user)%> | Score: <b><%=@discussion.score.to_i%></b>
-		    | <%=if owns?(@discussion) then link_to 'Edit', edit_discussion_path(@discussion) end%></p>
+		<center>
+			<h1><%= @discussion.header%> <%if !@discussion.published%> (Unpublished) <%end%></h1>
+			<p>
+				<ul>
+					<li>
+						<%= @discussion.type.name%>
+					</li>
+					<li>
+						<%= @discussion.topic.name%>
+					</li>
+				</ul>
+			</p>
+			<p>
+				By user: <%= link_to_user(@discussion.user)%> | Score: <b><%= @discussion.score.to_i%></b>
+				| <%= if owns?(@discussion) then link_to 'Edit', edit_discussion_path(@discussion) end%>
+			</p>
 		</center>
 	</div>
 	<div class="content">
-		<p><%=simple_format(@discussion.body)%></p>
-		<h3><center>Positions:</center></h3>
+		<p>
+			<%= simple_format(@discussion.body)%>
+		</p>
+		<h3>
+		<center>
+			Positions:
+		</center></h3>
 		<div class="container">
-			<%@index=1%>
+			<% @index=1%>
 			<%@published_positions.each_slice(2) do |row|%>
 			<div class="row">
-				<%=render partial:'positions/position', collection: row%>
+				<%= render partial:'positions/position', collection: row%>
 			</div>
 			<%end%>
 		</div>
 		<%if owns? @discussion then%>
-			<div class="container">
-				<%@unpublished_positions.each_slice(2) do |row|%>
-				<div class="row">
-					<%=render partial:'positions/position', collection: row%>
-				</div>
-				<%end%>
+		<div class="container">
+			<%@unpublished_positions.each_slice(2) do |row|%>
+			<div class="row">
+				<%= render partial:'positions/position', collection: row%>
 			</div>
+			<%end%>
+		</div>
 		<%end%>
-		
+
 	</div>
 	<div class="footer">
 		<%if editable? @discussion%>
-		<%=render partial:"look_for_user"%>
+		<%= render partial:"look_for_user"%>
 		<hr>
 		<span>Remember before publishing that no modifications can be made to the discussion or the positions afterwards</span>
 		<br>
 		<br>
-		<center><%=link_to "PUBLISH", publish_discussion_path(@discussion), class:"btn btn-success"%></center>
+		<center>
+			<%= link_to "PUBLISH", publish_discussion_path(@discussion), class:"btn btn-success"%>
+		</center>
 		<%end%>
 	</div>
-	
+
 </div>

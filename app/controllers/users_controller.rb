@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        format.html { log_in(@user,notice:"User was created successfully")}
+        format.html { log_in(@user,notice: "User was created successfully")}
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -79,12 +79,12 @@ class UsersController < ApplicationController
     def show_user
       respond_to do |format|
         format.html {render 'show'}
-        format.json {render json:@requested_user}
+        format.json {render json: @requested_user}
       end
     end
     
     def config_email_disabled
-      @config[:email_disabled]=true
+      @config[:email_disabled] = true
     end
     
     def user_match

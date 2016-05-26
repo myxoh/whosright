@@ -12,48 +12,48 @@ class Vote < ActiveRecord::Base
       change = (positive)? 1 : -1
       votable.update_attribute(:score,votable.score.to_i+change)
     else
-      return false
+      false
     end
   end
-  
+
   def restore_score
     restore = (positive)? -1 : 1
     votable.update_attribute(:score,votable.score+restore) unless votable.nil?
   end
-  
+
   def change_score
     change = (positive)? 2 : -2
     votable.update_attribute(:score,votable.score+change)
   end
-  
+
   def self.casted(params={})
     syms=[:user,:votable]
     sanitized_params=params.select{|k,v| syms.include? k}
     return Vote.find_by(sanitized_params)
   end
-  
+
   def self.casted?(params={})
     return !self.casted(params).nil?
   end
-  
+
   def self.casted_up?(params={})
     return self.casted(params).try(:positive)==true
   end
-  
+
   def self.casted_down?(params={})
     return self.casted(params).try(:positive)==false
   end
-  
+
   def self.crud(user,votable,positive) #Technically just a "CUD"
     #TODO see what to return.
     vote=self.find_by(user:user,votable:votable) # Looks if the vote was cast.
     if vote.nil?
       self.create(user:user,votable:votable,positive:positive)
     elsif vote.positive==positive
-      vote.destroy #If user re-selects the option he's therefore deleting the vote.
+    vote.destroy #If user re-selects the option he's therefore deleting the vote.
     else
       vote.update(positive:positive) #If user selects the other option he's updating his vote.
-    end 
+    end
   end
-  
+
 end

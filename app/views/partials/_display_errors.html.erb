@@ -1,10 +1,12 @@
 <% flash.each do |type, message| %>
-  <div class="alert <%= bootstrap_class_for(type) %> fade in">
-    <button class="close" data-dismiss="alert">×</button>
-    <%= message %>
-  </div>
+<div class="alert <%= bootstrap_class_for(type) %> fade in">
+	<button class="close" data-dismiss="alert">
+		×
+	</button>
+	<%= message %>
+</div>
 <% end %>
 
-<%=list_errors @user%>
-<%=list_errors @discussion%>
-<%=list_errors @position%>
+<%= list_errors @user%>
+<%= list_errors @discussion%>
+<%= list_errors @position%>

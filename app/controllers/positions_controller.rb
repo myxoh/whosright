@@ -8,19 +8,18 @@ class PositionsController < ApplicationController
   before_action only: [:new, :create] do
     set_discussion
     match_user(@discussion)
-    #editable?(@discussion) #Only the owner of the discussion can create positions
+  #editable?(@discussion) #Only the owner of the discussion can create positions
   end
   before_action only: [:destroy] do
     set_discussion
-    custom_conditions(match_user(@discussion, no_redirect: true)||match_user(@position, no_redirect: true))
+    custom_conditions(match_user(@discussion, no_redirect: true) || match_user(@position, no_redirect: true))
   end
-
 
   # GET /positions
   # GET /positions.json
   def index
     @from_user = User.find(params[:user_id])
-    @positions=@from_user.positions.where(body:nil).includes(:discussion, discussion:[:user])
+    @positions=@from_user.positions.where(body: nil).includes(:discussion, discussion:[:user])
   end
 
   # GET /positions/1
@@ -79,6 +78,7 @@ class PositionsController < ApplicationController
   end
 
   private
+
   def set_discussion
     @discussion = Discussion.find_by(id: params[:discussion_id])
     @discussion||=@position.discussion

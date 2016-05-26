@@ -2,23 +2,23 @@
 <div class="page-header">
 	<h1><%= @from_user.full_name %> Discussions:</h1>
 </div>
-	<div class="body">
-		<% if owns? @from_user %>
-			
-			<h3> Unpublished: </h3>
-			<% @unpublished.each_slice(3).each do |row| %>
-			<div class="row">
-				<%=render partial:"discussion/discussion", collection: row %>
-			</div>
-			<hr />
-			<h3> Published: </h3>
-			<% end %>
-		<% end %>
-		<% @published.each_slice(3).each do |row| %>
-			<div class="row">
-				<%=render partial:"discussion/discussion", collection: row %>
-			</div>
-		<% end %>
-		
-	 </div>			  
+<div class="body">
+	<% if owns? @from_user %>
+
+	<h3> Unpublished: </h3>
+	<% @unpublished.each_slice(3).each do |row| %>
+	<div class="row">
+		<%= render partial:"discussion/discussion", collection: row %>
+	</div>
+	<hr />
+	<h3> Published: </h3>
+	<% end %>
+	<% end %>
+	<% @published.each_slice(3).each do |row| %>
+	<div class="row">
+		<%= render partial:"discussion/discussion", collection: row %>
+	</div>
+	<% end %>
+
+</div>
 </div>
