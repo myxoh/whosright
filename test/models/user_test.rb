@@ -37,5 +37,9 @@ class UserTest < ActiveSupport::TestCase
     @user.password_confirmation=@user.password=pass
     assert !@user.valid?, "Created an user with a password that's too short"
   end
+  
+  test "Validate user from omniauth" do
+    #TODO r
+  end
 
 end

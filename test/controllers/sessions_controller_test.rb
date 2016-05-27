@@ -31,4 +31,8 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to home_path
   end
   
+  test "Validate from_omniauth" do
+    #TODO test this action
+  end
+  
 end
