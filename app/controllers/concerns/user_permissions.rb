@@ -4,7 +4,7 @@ module UserPermissions
   def get_user_or_redirect
     get_user
     if @user.nil? then
-      redirect_to login_path, flash: {error: "You must login first"}
+      redirect_to login_path, flash: {error: "You must login first"} and return
     else
       logged_in_configurations()
     end
@@ -23,17 +23,17 @@ module UserPermissions
     #Set default Options
     user=options[:to_user]
     options[:no_redirect]||=false
-    get_user_or_redirect
+    get_user_or_redirect # Options 'no_redirect' refers to no redirecting if it doesn't own the object. If their is no user we want a redirect.
     user||=@user
     #Finish setting default options
     puts "SECURITY VIOLATION: User #{user.inspect} tried to access object: #{object.inspect} at #{Time.now} \n "\
-    "that resource belongs to #{object.user.try(:inspect)}. " unless user.owns? object
+    "that resource belongs to #{object.try(:user).try(:inspect)}. " unless user.owns? object
 
-    redirect_to root_path, flash: {error: "Not enough permissions"} unless (user.owns? object || options[:no_redirect])
+    redirect_to(root_path, flash: {error: "Not enough permissions"}) and return unless (user.owns?(object) || options[:no_redirect])
     return (user.owns? object)
   end
 
   def custom_conditions(conditions = false)
-    redirect_to root_path, flash: {error: "Not enough permissions"} unless conditions
+    redirect_to(root_path, flash: {error: "Not enough permissions"}) and return unless conditions
   end
 end

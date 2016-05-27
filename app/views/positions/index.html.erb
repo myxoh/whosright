@@ -2,11 +2,10 @@
 	<h1>You have been invited to take place in the following discussions:</h1>
 </div>
 <div class="body">
-	<%= if @positions.empty? then "No new invitations..." end%>
+	<%=if @positions.empty? then "No new invitations..." end%>
 	<%@positions.each_slice(3).each do |row|%>
 	<div class="row">
-		<%= render partial:"discussion", collection: row, as: :position%>
+		<%= render partial: "position", collection: row%>
 	</div>
 	<%end%>
-</div>
 </div>

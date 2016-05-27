@@ -74,11 +74,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_raises(Exception){get :by_email, user:{email: "invalid@user.email"}}
   end
   
-  test "Positions tests" do
-    get :positions, id:@user
-    assert_equal assigns(:positions), @user.positions.where(body:nil)
-    
-  end
-  
+
   
 end

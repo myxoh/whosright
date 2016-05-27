@@ -33,9 +33,7 @@
 				<p>
 					<b id="user_result_full_name"></b> was found using email <b id="user_result_email"></b>
 				</p>
-				<script>var route =  "<%= @config[:look_for_user][:invite_link]%>
-					"
-				</script>
+				<script>var route = "<%= @config[:look_for_user][:invite_link]%>";</script>
 				<center>
 					<%= link_to 'Invite Him', "#", id: "invite_link", class: "btn btn-primary invite_link" %>
 				</center>

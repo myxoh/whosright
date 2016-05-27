@@ -31,10 +31,22 @@ class DiscussionsControllerTest < ActionController::TestCase
     log_in(users(:one))
   end
   
-  test "should not get index" do #We do not want this page
-    get :index
-    assert_redirected_to root_path
-    assert_match("permissions",flash[:error])
+  test "should not get index" do #We do not want this page with no user
+    assert_raises(Exception) { get :index }
+  end
+  
+  test "Should get full index" do
+    get :index, user_id: @discussion.user
+    assert_response :success
+    assert_equal assigns(:published).collect{|d| d.id}, @discussion.user.discussions.published.collect{|d| d.id}
+    assert_equal assigns(:unpublished).collect{|d| d.id}, @discussion.user.discussions.unpublished.collect{|d| d.id}
+  end
+  
+    test "Should get partial index" do
+    get :index, user_id: users(:two)
+    assert_response :success
+    assert_equal assigns(:published).collect{|d| d.id}, users(:two).discussions.published.collect{|d| d.id}
+    assert_nil assigns(:unpublished).try(:collect){|d| d.id}
   end
 
   test "should get new" do

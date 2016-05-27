@@ -12,6 +12,7 @@ class PositionsControllerTest < ActionController::TestCase
   setup do
     @position = positions(:one)
     @discussion=@position.discussion #Discussion one
+    @user = users(:one)
     log_in(users(:one)) #User one - It's the Discussion owner but NOT the position owner
   end
   
@@ -51,13 +52,18 @@ class PositionsControllerTest < ActionController::TestCase
     log_in(@position.user)
   end
   
-  test "should not get index" do
-    get :index
-    assert_redirected_to root_path
-    assert_match("permission",flash[:error])
+  test "should get index" do
+    log_in @position.user
+    get :index, user_id: @position.user
+    assert_equal assigns(:positions).try(:collect){|p| p.id}.to_a, @position.user.positions.where(body:nil).try(:collect){|p| p.id}
+    assert_response :success
   end
+
+  test "should not get index for other users" do 
+    not_enough_permissions_assertion(users(:one)){ get :index, user_id: users(:two) } #Logged In as One, Access Two.
+  end
+  
   test "should get new" do
-    
     new_position
     assert_response :success
   end

@@ -5,6 +5,10 @@ class PositionsController < ApplicationController
   before_action only: [:edit, :update] do
     match_user(@position)
   end
+  before_action only: [:index] do
+    set_from_user
+    match_user(@from_user)
+  end
   before_action only: [:new, :create] do
     set_discussion
     match_user(@discussion)
@@ -13,12 +17,12 @@ class PositionsController < ApplicationController
   before_action only: [:destroy] do
     set_discussion
     custom_conditions(match_user(@discussion, no_redirect: true) || match_user(@position, no_redirect: true))
+    
   end
 
   # GET /positions
   # GET /positions.json
   def index
-    @from_user = User.find(params[:user_id])
     @positions=@from_user.positions.where(body: nil).includes(:discussion, discussion:[:user])
   end
 
@@ -78,7 +82,10 @@ class PositionsController < ApplicationController
   end
 
   private
-
+  def set_from_user
+    @from_user = User.find(params[:user_id])
+  end
+  
   def set_discussion
     @discussion = Discussion.find_by(id: params[:discussion_id])
     @discussion||=@position.discussion
