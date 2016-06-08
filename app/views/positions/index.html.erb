@@ -5,7 +5,7 @@
 	<%=if @positions.empty? then "No new invitations..." end%>
 	<%@positions.each_slice(3).each do |row|%>
 	<div class="row">
-		<%= render partial: "position", collection: row%>
+		<%= render row%>
 	</div>
 	<%end%>
 </div>

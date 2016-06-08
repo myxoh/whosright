@@ -6,9 +6,19 @@ Rails.application.routes.draw do
     end
   end
   
+  concern :commentable do
+    resources :comments, only: [:create, :index] do
+      collection do
+        get 'get_all'
+      end
+    end
+  end
+  
   resources :discussions, only: [:new, :create] do #Allowed creating new items only from logged user
     resources :positions, shallow: true, concerns: :votable
   end
+  
+  resources :comments, concerns: [:votable, :commentable]
   
   resources :users do
     collection do
@@ -17,11 +27,11 @@ Rails.application.routes.draw do
     resources :positions, only: [:index] do
       #TODO allow showing all positions / Change current index to collection action 'invitations' and restore normal index functionality
     end
-    resources :discussions, except: [:new, :create], shallow: true, concerns: :votable do 
+    resources :discussions, except: [:new, :create], shallow: true, concerns: [:votable, :commentable] do 
       member do
         get 'publish'
       end
-      resources :positions, shallow: true, concerns: :votable
+      resources :positions, shallow: true, concerns: [:votable, :commentable]
     end
   end
   

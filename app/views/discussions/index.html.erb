@@ -8,7 +8,7 @@
 	<h3> Unpublished: </h3>
 	<% @unpublished.each_slice(3).each do |row| %>
 	<div class="row">
-		<%= render partial:"discussions/discussion", collection: row %>
+		<%= render row %>
 	</div>
 	<hr />
 	<h3> Published: </h3>
@@ -16,7 +16,7 @@
 	<% end %>
 	<% @published.each_slice(3).each do |row| %>
 	<div class="row">
-		<%= render partial:"discussions/discussion", collection: row %>
+		<%= render row %>
 	</div>
 	<% end %>
 

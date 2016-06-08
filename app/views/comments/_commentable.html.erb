@@ -1,0 +1,7 @@
+<hr>
+
+<h3>Comments: </h3>
+
+<%=get_comments reply_to%>
+
+<%= render partial: 'comments/reply', locals: {reply_to: reply_to}%>

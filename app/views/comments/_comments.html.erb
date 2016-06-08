@@ -1,0 +1,4 @@
+<div class="comments">
+	<%= render comments, locals: {replier: replier} %>
+	<%= render(partial: 'comments/view_all', locals: {parent: replier, last_child: comments.last}) %>
+</div>

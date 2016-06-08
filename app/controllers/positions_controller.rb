@@ -17,7 +17,6 @@ class PositionsController < ApplicationController
   before_action only: [:destroy] do
     set_discussion
     custom_conditions(match_user(@discussion, no_redirect: true) || match_user(@position, no_redirect: true))
-    
   end
 
   # GET /positions
@@ -29,6 +28,7 @@ class PositionsController < ApplicationController
   # GET /positions/1
   # GET /positions/1.json
   def show
+    redirect_to @position.discussion
   end
 
   # GET /positions/new

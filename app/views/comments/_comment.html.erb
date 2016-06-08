@@ -1,0 +1,16 @@
+<div class="comment">
+	<div class="comment_container" id="comment_<%=comment.id%>">
+	<a href="#"> <%= comment.user.full_name %>:</a> <%= comment.body %>
+	<br>
+	<%= votable_tag comment%>
+	<small><%= link_to "permalink", comment %>
+	<% if comment.get_level < 3%>	
+	| <%= link_to "reply", "#", class:"reply_link", "data-to"=>"Comment_#{comment.id}"%>
+	  <%= get_comments(comment) %>
+	<% end %>
+	</small>
+	<% if comment.get_level < 3%>	
+		<%= render partial: 'comments/reply', locals: {submit: "Reply", hidden: true, reply_to: comment}%>
+	<% end %>
+	</div>
+</div>

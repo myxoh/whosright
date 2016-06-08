@@ -1,5 +1,7 @@
 class Discussion < ActiveRecord::Base
   include Votable
+  include Commentable
+  
   belongs_to :user
   belongs_to :topic
   belongs_to :type, class_name:"DiscussionType", foreign_key:"discussion_type_id"

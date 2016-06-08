@@ -1,0 +1,10 @@
+<% submit ||= "Comment"%>
+<% hidden ||= false %>
+<div class="reply_to" id="reply_to_<%= reply_to.class.name %>_<%= reply_to.id %>" <%if hidden%> style="display:none;" <%end%>>
+	<%= form_for [reply_to, Comment.new] do |f|%>
+	<%= f.label :body,  'Comment:'%>
+	<br>
+	<%=f.text_area :body, style:"width:100%"%>
+	<%=f.submit submit, class:"center"%>
+	<% end %>
+</div>
