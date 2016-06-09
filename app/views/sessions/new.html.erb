@@ -1,21 +1,25 @@
-<%=form_for :sessions, class:"form-signin" do |f|%> <h1>
-<center>
-	Log-in
-</center></h1>
-<h2><small> Log-in now and join discussions or create your own!</small></h2>
-<%= f.label :email, "E-mail:"%>
-<%= f.email_field :email,  class:"form-control", value:params[:sessions].try("[]",:email)%>
-<%= f.label :password, "Password:" %>
-<%= f.password_field :password,  class:"form-control"  %>
-<br>
-<div class="checkbox">
-	<%= f.label :remember, f.check_box(:remember)+" Remember Me" %>
-</div>
-<%= f.submit "Log In", class: "btn btn-success" %>
-<br>
-<br>
-<%= link_to span("",class:"fa fa-facebook")+"Log in with Facebook", social_login_path(provider: "facebook"), class:'btn btn-social btn-facebook'%>
-<br>
-<hr>
-<%= link_to "Sign up!",signup_path , class:"btn btn-primary anchor"%>
-<%end%>
+<%= form_for :sessions, class: "form-signin" do |f| %>
+    <h1>
+      <center>
+        Log-in
+      </center>
+    </h1>
+    <h2>
+      <small> Log-in now and join discussions or create your own!</small>
+    </h2>
+    <%= f.label :email, "E-mail:" %>
+    <%= f.email_field :email, class: "form-control", value: params[:sessions].try("[]", :email) %>
+    <%= f.label :password, "Password:" %>
+    <%= f.password_field :password, class: "form-control" %>
+    <br>
+    <div class="checkbox">
+      <%= f.label :remember, f.check_box(:remember)+" Remember Me" %>
+    </div>
+    <%= f.submit "Log In", class: "btn btn-success" %>
+    <br>
+    <br>
+    <%= link_to span("", class: "fa fa-facebook")+"Log in with Facebook", social_login_path(provider: "facebook"), class: 'btn btn-social btn-facebook' %>
+    <br>
+    <hr>
+    <%= link_to "Sign up!", signup_path, class: "btn btn-primary anchor" %>
+<% end %>

@@ -1,7 +1,7 @@
 <div class="article">
 	<div class="header">
 		<center>
-			<h1><%= @discussion.header%> <%if !@discussion.published%> (Unpublished) <%end%> </h1>
+			<h1><%= @discussion.header%> <%unless @discussion.published%> (Unpublished) <%end%> </h1>
 			
 					
 					<hr>
@@ -18,7 +18,7 @@
 			</p>
 			<p>
 				By user: <%= link_to_user(@discussion.user)%>
-				<%= if owns?(@discussion) then link_to '| Edit', edit_discussion_path(@discussion) end%>
+				<%= link_to '| Edit', edit_discussion_path(@discussion)  if owns?(@discussion)%>
 				<%= votable_tag @discussion %>
 			</p>
 		</center>
@@ -32,14 +32,13 @@
 			Positions:
 		</center></h3>
 		<div class="container">
-			<% @index=1%>
 			<%@published_positions.each_slice(2) do |row|%>
 			<div class="row">
 				<%= render partial:'positions/position', collection: row%>
 			</div>
 			<%end%>
 		</div>
-		<%if owns? @discussion then%>
+		<%if owns? @discussion %>
 		<div class="container">
 			<%@unpublished_positions.each_slice(2) do |row|%>
 			<div class="row">

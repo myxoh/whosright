@@ -6,7 +6,7 @@ class HomeControllerTest < ActionController::TestCase
   end
   
   test "should redirect to login because user is not logged in" do
-    log_out()
+    log_out
     get :stories
     assert_redirected_to login_path #Before being logged in, we cannot access this site.
     log_in(users(:one))

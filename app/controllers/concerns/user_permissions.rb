@@ -3,10 +3,10 @@ module UserPermissions
   
   def get_user_or_redirect
     get_user
-    if @user.nil? then
+    if @user.nil?
       redirect_to login_path, flash: {error: "You must login first"} and return
     else
-      logged_in_configurations()
+      logged_in_configurations
     end
   end
 
@@ -30,7 +30,7 @@ module UserPermissions
     "that resource belongs to #{object.try(:user).try(:inspect)}. " unless user.owns? object
 
     redirect_to(root_path, flash: {error: "Not enough permissions"}) and return unless (user.owns?(object) || options[:no_redirect])
-    return (user.owns? object)
+    (user.owns? object)
   end
 
   def custom_conditions(conditions = false)

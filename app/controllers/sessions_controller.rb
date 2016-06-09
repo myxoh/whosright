@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     #TODO code the 'remember-me' button
     user=User.find_by_email(params[:sessions][:email])
-    if user&&user.authenticate(params[:sessions][:password]) then
+    if user&&user.authenticate(params[:sessions][:password])
       log_in user, notice: "Successfully logged in"
     else
       flash.now[:error]="Wrong E-mail or Password"
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def oauthcreate
     auth_info = env["omniauth.auth"]
-    if user = User.from_omniauth(auth_info) then
+    if (user = User.from_omniauth(auth_info))
       log_in user, notice: "Successfully logged in"
     else
       redirect_to login_path, flash: {error: "That e-mail is already in use."}

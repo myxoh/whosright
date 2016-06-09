@@ -16,7 +16,7 @@ class PositionsControllerTest < ActionController::TestCase
     log_in(users(:one)) #User one - It's the Discussion owner but NOT the position owner
   end
   
-  def test_verification test_name = "", discussion = @discussion
+  def test_verification(test_name = "", discussion = @discussion)
     puts "STARTING __" +test_name
     puts "Discussion User"
     puts discussion.user.inspect
@@ -36,7 +36,7 @@ class PositionsControllerTest < ActionController::TestCase
     assert_difference('Position.count', difference) do
       create_position(discussion)
     end
-    return Position.last
+    Position.last
   end
   
   
@@ -45,7 +45,7 @@ class PositionsControllerTest < ActionController::TestCase
   end
   
   test "should require to be logged in for all methods" do
-    log_out()
+    log_out
     get :show, id: @position
     assert_redirected_to login_path
     assert_match("log", flash[:error])
@@ -91,8 +91,8 @@ class PositionsControllerTest < ActionController::TestCase
     assert_create_position false
   end
 
-  def edit_position position
-    get :edit, id:position
+  def edit_position(position)
+    get :edit, id: position
   end
   
   test "should get edit only for correct user" do
@@ -105,22 +105,22 @@ class PositionsControllerTest < ActionController::TestCase
     not_enough_permissions_assertion(users(:no_permissions)){edit_position @position}
   end
   
-  def update_position position
-    post :update, id:position, position:{name:"NewName",body:"NewBody",score:10,discussion_id:10,email:"get@email.com"} #Note I'm not expecting the score and the discussion_id to be updated
+  def update_position(position)
+    post :update, id: position, position: {name: "NewName", body: "NewBody", score: 10, discussion_id: 10, email: "get@email.com"} #Note I'm not expecting the score and the discussion_id to be updated
   end
   
-  def assert_update position, correct = true
+  def assert_update(position, correct = true)
     #Since I'll get a bunch of positions in the Discussion param, it's easier to check with a reload if the position was updated correctly
     position.reload
-    if correct then
-      assert_equal("NewName",@position.name)
-      assert_equal("NewBody",@position.body)
+    if correct
+      assert_equal("NewName", @position.name)
+      assert_equal("NewBody", @position.body)
     else
-      assert_not_equal("NewName",@position.name)
-      assert_not_equal("NewBody",@position.body)
+      assert_not_equal("NewName", @position.name)
+      assert_not_equal("NewBody", @position.body)
     end
-    assert_not_equal(10,@position.score) # Check this param is not updatable.
-    assert_not_equal(10,@position.discussion_id) # Check this param is not updatable.
+    assert_not_equal(10, @position.score) # Check this param is not updatable.
+    assert_not_equal(10, @position.discussion_id) # Check this param is not updatable.
   end
   
   test "should update position only for correct user and correct params" do
@@ -139,8 +139,8 @@ class PositionsControllerTest < ActionController::TestCase
     assert_update @position, false 
   end
   
-  def destroy_test position, correct = true
-    change=(correct)? -1 : 0
+  def destroy_test(position, correct = true)
+    change=(correct) ? -1 : 0
     assert_difference('Position.count', change) do
       delete :destroy, id: @position
     end

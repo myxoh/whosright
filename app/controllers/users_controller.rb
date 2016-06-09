@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :positions]
+  before_action :set_user, only: [:show, :edit, :update]
   before_action :only_admin, only: [:index, :destroy] #Only Administrators can list all users or destroy them
-  before_action :get_user_or_redirect, only: [:show, :edit, :update, :by_email, :positions] #Only show the profiles to logged in users.
+  before_action :get_user_or_redirect, only: [:show, :edit, :update, :by_email] #Only show the profiles to logged in users.
   before_action :config_email_disabled, only: [:edit, :update]
   before_action :user_match, only: [:edit, :update] # Only the user should have access to this content
 

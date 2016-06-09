@@ -8,7 +8,7 @@ class Vote < ActiveRecord::Base
   validates :votable, presence:true
   validates_inclusion_of :positive, presence:true, :in => [true, false]
   def create_score
-    if(Vote.find_by(user:user,votable:votable).nil?) then
+    if Vote.find_by(user: user, votable: votable).nil?
       change = (positive)? 1 : -1
       votable.update_attribute(:score,votable.score.to_i+change)
     else
@@ -37,11 +37,11 @@ class Vote < ActiveRecord::Base
   end
 
   def self.casted_up?(params={})
-    return self.casted(params).try(:positive)==true
+    self.casted(params).try(:positive)
   end
 
   def self.casted_down?(params={})
-    return self.casted(params).try(:positive)==false
+    self.casted(params).try(:positive) == false
   end
 
   def self.crud(user,votable,positive) #Technically just a "CUD"

@@ -13,7 +13,7 @@ class Discussion < ActiveRecord::Base
   has_many :positions
   scope :published, ->{where(published: true)}
   scope :unpublished, ->{where(published: nil)}
-  def editable? user
+  def editable?(user)
     user.owns?(self)&&editable_conditions?
   end
 

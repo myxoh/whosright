@@ -11,7 +11,7 @@ class DiscussionsController < ApplicationController
   def index
     @from_user = User.find(params[:user_id])
     @published = @from_user.discussions.published
-    if @user.owns? @from_user then
+    if @user.owns? @from_user
       @unpublished = @from_user.discussions.unpublished
     end
   end

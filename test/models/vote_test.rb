@@ -10,7 +10,7 @@ class VoteTest < ActiveSupport::TestCase
     @votes[1]=Vote.new(positive:true,user:@user,votable:@position)
   end
   
-  def v i
+  def get_vote(i)
     @vote=@votes[i]
   end
  
@@ -31,17 +31,17 @@ class VoteTest < ActiveSupport::TestCase
     remove_param_test("votable", @votes[1]) #Shouldn't make any difference.
   end
   
-  def assert_vote_worked difference, votable, old_score
+  def assert_vote_worked(difference, votable, old_score)
     votable.reload
-    assert_equal(votable.score-old_score,difference)
-    return votable
+    assert_equal(votable.score-old_score, difference)
+    votable
   end
   
-  def casted_method_assertion hash
+  def casted_method_assertion(hash)
     vote=Vote.find_by(hash)
     assert_equal Vote.casted(hash), vote
     assert_equal Vote.casted?(hash), !vote.nil?
-    assert_equal Vote.casted_up?(hash), !!vote.try(:positive)
+    assert_equal Vote.casted_up?(hash), vote.try(:positive)
     assert_equal Vote.casted_down?(hash), !vote.nil?&&!vote.try(:positive)
   end
   
@@ -50,7 +50,7 @@ class VoteTest < ActiveSupport::TestCase
 
     test "Voting"+i.to_s do
       #Is this necessary after having already tested in the controllers?? 
-      v i
+      get_vote i
       votable=@vote.votable
       initial_score=votable.score
       
@@ -75,7 +75,7 @@ class VoteTest < ActiveSupport::TestCase
     
     
     test "casted methods"+i.to_s do
-      v i
+      get_vote i
       votable=@vote.votable
       hash={votable:votable,user:User.first}
       casted_method_assertion hash
@@ -90,7 +90,7 @@ class VoteTest < ActiveSupport::TestCase
     end
     
     test "Validate CRUD method"+i.to_s do
-      v i
+      get_vote i
 
       @vote.save
       votable=@vote.votable

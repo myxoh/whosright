@@ -17,7 +17,7 @@ module VotableController
   end
   
   private
-  def return_params votable
-    return votable.attributes.select{|key,value| (%w"id score").include? key}.to_a.push(["model",votable.class.name]).to_h
+  def return_params(votable)
+    votable.attributes.select { |key, value| (%w"id score").include? key }.to_a.push(["model", votable.class.name]).to_h
   end
 end

@@ -15,7 +15,7 @@
 				Look for user
 			</center></h3>
 			<div class="caption">
-				<%= form_for(:user, url: by_email_users_path, remote: true, format: :json, method: :get, html: {id: "search_form", 'data-type' => 'json'}) do |f| %>
+				<%= form_for(:user, url: by_email_users_path, remote: true, format: :json, method: :get, html: {id: "search_form", data:{type:'json'}}) do |f| %>
 				<%= f.email_field :email, placeholder: "E-mail", class: "form-control" %>
 				<br>
 				<%= button_tag content_tag(:span, " Search", class: "glyphicon glyphicon-search"), class: "form-control" %>

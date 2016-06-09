@@ -1,18 +1,18 @@
-<%@index ||= 0%>
+<%index ||= 0%>
 <div class="col-sm-6 col-md-4">
 	<div class="thumbnail">
 		<div class="caption">
 			<%if position.new? && owns?(position)%>
 				<p><b>Invited by</b> <%=position.discussion.user.full_name%></p>
 			<%else%>
-				<p><b>By</b> <%=position.get_name(@index, @user)%></p>
+				<p><b>By</b> <%=position.get_name(index, @user)%></p>
 			<%end%>
 			<p><%=simple_format(position.body)%></p>
 		</div>
 		<div class="caption footer">
 			<p>
 				<span>
-				 <%=if !position.new? then votable_tag(position) end%>
+				 <%=votable_tag(position) unless position.new?%>
 				 <%if owns?(position)||owns?(@discussion)%>
 				 	<%if owns? position%>
 				 		<hr> <%= link_to 'View Discussion', discussion_path(position.discussion), class: 'btn btn-primary'%> <hr>
@@ -23,9 +23,7 @@
 				</span>
 			</p>
 		</div>
-		<% if !position.new? %>
-			<%= commentable_tag(position) %>
-		<%end%>
+			<%= commentable_tag(position) unless position.new? %>
 	</div>
 </div>
-<%@index+=1%>
+<%index+=1%>

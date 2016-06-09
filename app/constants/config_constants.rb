@@ -2,7 +2,7 @@ module ConfigConstants
   VERSION=2
   NEW_DISCUSSIONS_TIME_DEFINITION=1
 
-  def initial_settings()
+  def initial_settings
     {
         lang: "en",
         title: "Who's Correct?",
@@ -13,7 +13,7 @@ module ConfigConstants
     }
   end
 
-  def logged_header()
+  def logged_header
     "/partials/default_header"
   end
 

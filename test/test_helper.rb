@@ -25,12 +25,12 @@ class ActiveSupport::TestCase
      
   def not_enough_permissions_assertion(wrong_user,&local_test)
     log_in(wrong_user)
-    local_test.call()
+    local_test.call
     assert_redirected_to root_path, "Didn't get redirected from #{wrong_user.inspect}"
     assert_match("permission",flash[:error], "Didn't get permission errors from #{wrong_user.inspect}")
   end
   
-  def vote_assertion new_score, element
+  def vote_assertion(new_score, element)
     assert_response :success
     element.reload
     element_assigns=assigns(:position)||assigns(:discussion) #Not really nice way of doing this.
@@ -42,30 +42,30 @@ class ActiveSupport::TestCase
   end
   
   
-  def vote_methods element
+  def vote_methods(element)
     #First time should update the score +1 (1)
     old_score=element.score
-    get :vote_up, id:element
+    get :vote_up, id: element
     vote_assertion old_score+1, element
-    
+
     #Vote down should now update the score -2 (-1)
-    get :vote_down, id:element
+    get :vote_down, id: element
     vote_assertion old_score-1, element
-    
+
     #Vote down again should update the score +1 (0)
-    get :vote_down, id:element
+    get :vote_down, id: element
     vote_assertion old_score, element
-    
+
     #Vote down again should update the score -1 (-1)
-    get :vote_down, id:element
+    get :vote_down, id: element
     vote_assertion old_score-1, element
-    
+
     #Vote up should update the score +2         (+1)
-    get :vote_up, id:element
+    get :vote_up, id: element
     vote_assertion old_score+1, element
-    
+
     #Finally vote up again should restore the score
-    get :vote_up, id:element
+    get :vote_up, id: element
     vote_assertion old_score, element
   end
   
@@ -92,7 +92,7 @@ class ActiveSupport::TestCase
     assert_not element.valid?, "#{param}  wasn't more than the maximum (#{length})"
   end
   
-  def validate_votes element
+  def validate_votes(element)
     user=User.first
     element.score=0
     element.save

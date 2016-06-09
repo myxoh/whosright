@@ -6,10 +6,11 @@
 	<small><%= link_to "permalink", comment %>
 	<% if comment.get_level < 3%>	
 	| <%= link_to "reply", "#", class:"reply_link", "data-to"=>"Comment_#{comment.id}"%>
-	  <%= get_comments(comment) %>
-	<% end %>
-	</small>
-	<% if comment.get_level < 3%>	
+  <% end %>
+  </small>
+
+	<% if comment.get_level < 3%>
+    <%= get_comments(comment) %>
 		<%= render partial: 'comments/reply', locals: {submit: "Reply", hidden: true, reply_to: comment}%>
 	<% end %>
 	</div>

@@ -21,7 +21,7 @@ class DiscussionsControllerTest < ActionController::TestCase
   end
   
   test "should not allow user to create with no session" do
-    log_out()
+    log_out
     assert_no_difference('Discussion.count') do
       post :create, discussion: { body: @discussion.body, discussion_type_id: @discussion.discussion_type_id, header: @discussion.header, score: @discussion.score, topic_id: @discussion.topic_id, user_id: @discussion.user_id }
     end

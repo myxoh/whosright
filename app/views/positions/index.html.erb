@@ -2,7 +2,7 @@
 	<h1>You have been invited to take place in the following discussions:</h1>
 </div>
 <div class="body">
-	<%=if @positions.empty? then "No new invitations..." end%>
+	<%="No new invitations..." if @positions.empty?%>
 	<%@positions.each_slice(3).each do |row|%>
 	<div class="row">
 		<%= render row%>

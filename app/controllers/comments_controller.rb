@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
     else
       flash[:error] = "There was an error creating your comment"
     end
-    redirect_to comment.container
+    render comment, layout: false
   end
 
   def show
