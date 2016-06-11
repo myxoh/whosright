@@ -2,8 +2,6 @@
 	<div class="header">
 		<center>
 			<h1><%= @discussion.header%> <%unless @discussion.published%> (Unpublished) <%end%> </h1>
-			
-					
 					<hr>
 			<p>
 				
@@ -27,39 +25,32 @@
 		<p>
 			<%= simple_format(@discussion.body)%>
 		</p>
-		<h3>
-		<center>
+		<h3 class="center">
 			Positions:
-		</center></h3>
+		</h3>
 		<div class="container">
-			<%@published_positions.each_slice(2) do |row|%>
+			<%@positions.each_slice(2) do |row|%>
 			<div class="row">
-				<%= render partial:'positions/position', collection: row%>
+				<%= render row%>
 			</div>
 			<%end%>
+      <h3>Add position:</h3>
+      <div class="row">
+        <%= render position = @discussion.positions.new(user: @discussion.user) unless @discussion.published? %>
+      </div>
 		</div>
-		<%if owns? @discussion %>
-		<div class="container">
-			<%@unpublished_positions.each_slice(2) do |row|%>
-			<div class="row">
-				<%= render partial:'positions/position', collection: row%>
-			</div>
-			<%end%>
-		</div>
-		<%end%>
 		
-	<%= commentable_tag(@discussion) %>
+	<%= commentable_tag(@discussion) if @discussion.published?%>
 	</div>
 	<div class="footer">
 		<%if editable? @discussion%>
 		<%= render partial:"look_for_user"%>
 		<hr>
-		<span>Remember before publishing that no modifications can be made to the discussion or the positions afterwards</span>
+        <h3><%=span "", class:"glyphicon glyphicon-warning-sign"%> <%=span "Remember!"%></h3>
+		<b>Remember before publishing that no modifications can be made to the discussion or the positions afterwards</b>
 		<br>
 		<br>
-		<center>
-			<%= link_to "PUBLISH", publish_discussion_path(@discussion), class:"btn btn-success"%>
-		</center>
+			<%= link_to "PUBLISH", publish_discussion_path(@discussion), class:"btn btn-success center"%>
 		<%end%>
 	</div>
 

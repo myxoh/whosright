@@ -19,8 +19,7 @@ class DiscussionsController < ApplicationController
   # GET /discussions/1
   # GET /discussions/1.json
   def show
-    @published_positions = @discussion.positions.where.not(body: nil)
-    @unpublished_positions = @discussion.positions.where(body: nil)
+    @positions = @discussion.positions.includes(:user,:comments)
   end
 
   def publish

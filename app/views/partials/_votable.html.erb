@@ -1,5 +1,5 @@
 <div class="votable">
-	<%= vote_up(path_up, votable, @user)%>
-	<%= badge(votable.score.to_i, id:"score_for_"+votable.class.name+"_"+votable.id.to_s)%>
-	<%= vote_down(path_down,votable, @user)%>
+	<%= vote_up(path_up, votable, @user, size)%>
+	<%= badge(votable.score.to_i, id:"score_for_"+votable.class.name+"_"+votable.id.to_s, size: size)%>
+	<%= vote_down(path_down,votable, @user, size)%>
 </div>

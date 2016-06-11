@@ -14,9 +14,13 @@ class Position < ActiveRecord::Base
   def new?
     body.nil? && name.nil?
   end
+
+  def editable? remote_user
+   !discussion_not_published_conditions && remote_user.owns?(self)
+  end
   
-  def get_name(order = id, user = User.new)
-    if user.owns? discussion
+  def get_name(order = id, remote_user = User.new)
+    if remote_user.owns? discussion
       "#{user.full_name} (#{user.email})"
     else
       (!name.nil?)? name : "Person #{order}" 
@@ -25,8 +29,12 @@ class Position < ActiveRecord::Base
   
   private
   def discussion_not_published
-    if discussion.nil? || discussion.published?
+    if discussion_not_published_conditions
       errors.add(:body, "You are trying to update or create a position for an already published Discussion.")
     end
+  end
+
+  def discussion_not_published_conditions
+    discussion.nil? || discussion.published?
   end
 end

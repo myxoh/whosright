@@ -1,3 +1,5 @@
+
+<% see_discussion ||= "What do you think?" %>
 <div class="col-sm-6 col-md-4">
 	<div class="thumbnail">
 		<div class="caption">
@@ -8,7 +10,7 @@
 		 </div>
 		<div class="caption footer">
 			<p>
-				<span><%=votable_tag(discussion)%></span> | <span><%=link_to "What do you think?", discussion, class:"btn btn-primary", role:"button"%></span>
+				<span><%=votable_tag(discussion)%></span> | <span><%=link_to see_discussion, discussion, class:"btn btn-primary", role:"button"%></span>
 			</p>
 		</div>
 		<%= commentable_tag(discussion) %>

@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   end
   
   resources :discussions, only: [:new, :create] do #Allowed creating new items only from logged user
-    resources :positions, shallow: true, concerns: :votable
   end
   
   resources :comments, concerns: [:votable, :commentable]

@@ -7,6 +7,6 @@ module CustomHelper
     span(content, options)
   end
   def list_errors(element)
-    render partial:"partials/display_element_error", locals:{element:element}
+    render partial: "partials/display_element_error", locals: {element: element}
   end
 end

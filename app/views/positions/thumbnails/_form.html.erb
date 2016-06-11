@@ -1,0 +1,34 @@
+<% url ||= if position.new_record?
+             discussion_positions_path(position.discussion)
+           else
+             position_path(position)
+           end%>
+<% submit_text ||= if position.new?
+                    if position.new_record?
+                      'Write position'
+                    else
+                      'Accept Invitation'
+                    end
+                   else
+                    'Edit position'
+                   end %>
+<div class="col-sm-6 col-md-4">
+  <%= form_for(position, url: url, class:"form-publish") do |f| %>
+  <div class="thumbnail">
+    <div class="caption">
+      <%= f.text_field :name, class: "form-control", placeholder: "Anonymous Name for your position" %>
+      <p>
+        <%= f.text_area :body,  class:"form-control"%>
+      </p>
+    </div>
+    <div class="caption footer">
+      <p class="center">
+        <%= f.submit submit_text,  class: "btn btn-success" %>
+        <% unless position.new_record? %> | <%= link_to 'Delete', position, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger"%> <%end%>
+
+				</span>
+      </p>
+    </div>
+  </div>
+  <% end %>
+</div>

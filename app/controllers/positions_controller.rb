@@ -44,7 +44,7 @@ class PositionsController < ApplicationController
   # POST /positions.json
   def create
     @position = @discussion.positions.new(create_position_params)
-
+    if @position.user.nil? then @position.user = @discussion.user end
     respond_to do |format|
       if @position.save
 
@@ -102,7 +102,7 @@ class PositionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def create_position_params
-    params.require(:position).permit(:discussion_id, :email)
+    params.require(:position).permit(:discussion_id, :email, :name, :body)
   end
 
   def edit_position_params

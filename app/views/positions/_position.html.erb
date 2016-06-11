@@ -1,29 +1,8 @@
-<%index ||= 0%>
-<div class="col-sm-6 col-md-4">
-	<div class="thumbnail">
-		<div class="caption">
-			<%if position.new? && owns?(position)%>
-				<p><b>Invited by</b> <%=position.discussion.user.full_name%></p>
-			<%else%>
-				<p><b>By</b> <%=position.get_name(index, @user)%></p>
-			<%end%>
-			<p><%=simple_format(position.body)%></p>
-		</div>
-		<div class="caption footer">
-			<p>
-				<span>
-				 <%=votable_tag(position) unless position.new?%>
-				 <%if owns?(position)||owns?(@discussion)%>
-				 	<%if owns? position%>
-				 		<hr> <%= link_to 'View Discussion', discussion_path(position.discussion), class: 'btn btn-primary'%> <hr>
-				 		
-				 		<%= link_to ((position.new?)? 'Accept Invitation' : 'Edit Position'), edit_position_path(position), class: "btn btn-success" %>
-				 	<%end%> | <%= link_to 'Delete', position, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
-				 <%end%>
-				</span>
-			</p>
-		</div>
-			<%= commentable_tag(position) unless position.new? %>
-	</div>
-</div>
-<%index+=1%>
+<% @positions_index ||= 0 %>
+<% if editable? position  %>
+    <%= render partial: 'positions/thumbnails/form', locals: {position: position}  %>
+<% elsif !position.new? || owns?(position.discussion) %>
+    <%= render partial: 'positions/thumbnails/position', locals: {position: position, index: @positions_index} %>
+<% end %>
+
+<%@positions_index += 1%>

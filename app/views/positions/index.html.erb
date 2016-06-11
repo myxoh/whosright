@@ -4,8 +4,8 @@
 <div class="body">
 	<%="No new invitations..." if @positions.empty?%>
 	<%@positions.each_slice(3).each do |row|%>
-	<div class="row">
-		<%= render row%>
-	</div>
+    <div class="row">
+      <%= render partial: 'positions/invitation',  collection: row, as: :position%>
+    </div>
 	<%end%>
 </div>
