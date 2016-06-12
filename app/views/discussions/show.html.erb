@@ -16,7 +16,7 @@
 		</div>
     <hr>
 
-    <%= commentable_tag @discussion %>
+    <%= commentable_tag @discussion if @discussion.published?%>
 	</div>
 	<%if editable? @discussion%>
     <div class="footer">
