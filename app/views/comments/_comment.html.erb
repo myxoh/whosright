@@ -2,7 +2,7 @@
 	<div class="comment_container" id="comment_<%=comment.id%>">
 	<a href="#"> <%= comment.user.full_name %>:</a> <%= comment.body %>
 	<br>
-	<%= votable_tag comment, "btn-xs"%>
+	<%= votable_tag comment, size: "btn-xs"%>
 	<small><%= link_to "permalink", comment %>
 	<% if comment.get_level < 3%>	
 	| <%= link_to "reply", "#", class:"reply_link", "data-to"=>"Comment_#{comment.id}"%>

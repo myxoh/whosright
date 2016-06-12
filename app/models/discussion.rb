@@ -5,12 +5,15 @@ class Discussion < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
   belongs_to :type, class_name:"DiscussionType", foreign_key:"discussion_type_id"
+  has_many :positions
+  has_many :active_positions, ->{active}, class_name:"Position"
+
   validates :header, presence: true, length:{minimum:5,maximum:50}
   validates :user, presence: true
   validates :topic, presence: true
   validates :type, presence: true
   validates :published, absence: { message: " Problem: Discussion is already published" }
-  has_many :positions
+
   scope :published, ->{where(published: true)}
   scope :unpublished, ->{where(published: nil)}
   def editable?(user)

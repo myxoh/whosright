@@ -1,19 +1,21 @@
-<div class="col-sm-6 col-md-4">
+<% no_comments ||= false %>
+<div class="col-sm-6 col-md-6">
   <div class="thumbnail">
-    <p><b>By</b> <%=position.get_name(index, @user)%></p>
-    <p><%=simple_format(position.body)%></p>
+    <p><b>By</b> <%= position.name %></p>
+    <p><%= simple_format(position.body) %></p>
     <div class="caption footer">
       <p>
 				<span>
-				 <%=votable_tag(position) unless position.new?%>
-          <%if owns?(@discussion)%>
-           <%= link_to 'Delete', position, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+				 <%= votable_tag(position, style: :agreable) unless position.new? %>
+          <% if owns?(@discussion) %>
+          | <%= link_to 'Delete', position, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
            <hr>
-           This position is private. Only you and the invited user can see it.
-				 <%end%>
+           This position is private. Only you and the invited user can see it. <br>
+           The invited user is: <b><%= position.get_name(index, @user) %></b>
+				 <% end %>
 				</span>
       </p>
-      <%= commentable_tag(position) unless position.new? %>
+      <%= commentable_tag(position) unless (position.new? or no_comments) %>
     </div>
   </div>
 </div>

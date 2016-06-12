@@ -1,0 +1,7 @@
+<div class="<%= style %>">
+  <%= vote_up(path_up, votable, @user, size, style: style) %>
+
+  <%= badge(votable.score.to_i, id: "score_for_"+votable.class.name+"_"+votable.id.to_s,
+        size: size) unless ([:agreable].include? style) %>
+  <%= vote_down(path_down, votable, @user, size, style: style) %>
+</div>

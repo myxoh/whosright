@@ -8,12 +8,7 @@
 	<%= @requested_user.last_name %>
 </p>
 
-<p>
-	<strong>Email:</strong>
-	<%= @requested_user.email %>
-</p>
-<%if @user==@requested_user%>
-
-<%= link_to 'Edit', edit_user_path(@user) %>
-
-<%end%>
+<%= link_to "Discussions", [@requested_user, Discussion] %>
+<br>
+<%= #link_to "Positions", [@requested_user, Position]
+%>

@@ -1,0 +1,6 @@
+<%
+  custom_class = "glow"
+  custom_class += (Vote.casted_down?(votable: votable, user: user)) ? " bad" : ""
+  button = link_to span("I disagree"), path, remote: true, class: "btn btn-danger vote_down #{size}"
+%>
+<%= content_tag(:div, button, class: custom_class, id: "vote_glowable_down_"+votable.class.name+"_"+votable.id.to_s) %>

@@ -1,57 +1,33 @@
 <div class="article">
-	<div class="header">
-		<center>
-			<h1><%= @discussion.header%> <%unless @discussion.published%> (Unpublished) <%end%> </h1>
-					<hr>
-			<p>
-				
-				<ul>
-					<li>
-						<%= @discussion.type.name%>
-					</li>
-					<li>
-						<%= @discussion.topic.name%>
-					</li>
-				</ul>
-			</p>
-			<p>
-				By user: <%= link_to_user(@discussion.user)%>
-				<%= link_to '| Edit', edit_discussion_path(@discussion)  if owns?(@discussion)%>
-				<%= votable_tag @discussion %>
-			</p>
-		</center>
-	</div>
+
+  <%= render partial: 'discussions/content', locals: {discussion: @discussion} %>
+
 	<div class="content">
-		<p>
-			<%= simple_format(@discussion.body)%>
-		</p>
 		<h3 class="center">
 			Positions:
 		</h3>
-		<div class="container">
+		<div class="container-fluid">
 			<%@positions.each_slice(2) do |row|%>
 			<div class="row">
 				<%= render row%>
 			</div>
 			<%end%>
+
+		</div>
+    <hr>
+
+    <%= commentable_tag @discussion %>
+	</div>
+	<%if editable? @discussion%>
+    <div class="footer">
       <h3>Add position:</h3>
       <div class="row">
         <%= render position = @discussion.positions.new(user: @discussion.user) unless @discussion.published? %>
       </div>
-		</div>
-		
-	<%= commentable_tag(@discussion) if @discussion.published?%>
-	</div>
-	<div class="footer">
-		<%if editable? @discussion%>
-		<%= render partial:"look_for_user"%>
-		<hr>
-        <h3><%=span "", class:"glyphicon glyphicon-warning-sign"%> <%=span "Remember!"%></h3>
-		<b>Remember before publishing that no modifications can be made to the discussion or the positions afterwards</b>
-		<br>
-		<br>
-			<%= link_to "PUBLISH", publish_discussion_path(@discussion), class:"btn btn-success center"%>
-		<%end%>
-	</div>
+      <hr>
+      <%= render partial: "look_for_user"%>
+      <%= render partial: "publish", locals: {discussion: @discussion}%>
+    </div>
+  <%end%>
 
 </div>

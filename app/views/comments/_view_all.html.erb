@@ -1,4 +1,5 @@
 <small>
-	<%= link_to "View All...", url_for([:get_all, parent, Comment]),  class: "view_all",
-	"data-id"=>parent.id, "data-class"=>parent.class, remote: true %> 
+	<%= link_to("View All...", url_for([:get_all, parent, Comment]),  class: "view_all",
+	"data-id"=>parent.id, "data-class"=>parent.class, remote: true)  if should_display_view_all(parent)
+  %>
 </small>

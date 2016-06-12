@@ -1,8 +1,11 @@
-<% @positions_index ||= 0 %>
+<% @positions_index ||= 0
+   no_comments ||= false
+%>
 <% if editable? position  %>
     <%= render partial: 'positions/thumbnails/form', locals: {position: position}  %>
 <% elsif !position.new? || owns?(position.discussion) %>
-    <%= render partial: 'positions/thumbnails/position', locals: {position: position, index: @positions_index} %>
+    <%= render partial: 'positions/thumbnails/position', locals: {position: position, index: @positions_index,
+                                                                  no_comments: no_comments} %>
 <% end %>
 
 <%@positions_index += 1%>

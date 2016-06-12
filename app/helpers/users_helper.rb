@@ -1,5 +1,5 @@
 module UsersHelper
-  def link_to_user(user = @user,options = {})
+  def link_to_user(user = @user, options = {})
     options[:class]||="user_link"
     link_to(user.full_name, user, options)
   end

@@ -10,6 +10,8 @@ class Position < ActiveRecord::Base
   validates :discussion, presence: true
   validate :discussion_not_published
   has_secure_token
+
+  scope :active, ->{where.not(body:nil)}
   
   def new?
     body.nil? && name.nil?
@@ -21,7 +23,11 @@ class Position < ActiveRecord::Base
   
   def get_name(order = id, remote_user = User.new)
     if remote_user.owns? discussion
-      "#{user.full_name} (#{user.email})"
+      if user.nil?
+        "Invite pending. No. #{order}"
+      else
+        "#{user.full_name} (#{user.email})"
+      end
     else
       (!name.nil?)? name : "Person #{order}" 
     end

@@ -1,0 +1,23 @@
+
+  <div class="top-left">
+    <%= votable_tag discussion, style: :arrows %>
+  </div>
+  <div class="caption header">
+
+    <h2><div class="center"><div class="spacer"></div> <%= span discussion.header%> </div></h2>
+    <div class="center">
+      <p>
+        By <%= link_to_user( discussion.user)%>
+        <%= link_to '| Edit', edit_discussion_path(discussion)  if owns?(discussion)%>
+      </p>
+      <ul>
+        <li>
+          <%= discussion.type.name%>
+        </li>
+        <li>
+          <%= discussion.topic.name%>
+        </li>
+      </ul>
+    </div>
+  </div>
+

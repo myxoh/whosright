@@ -1,8 +1,3 @@
-<% url ||= if position.new_record?
-             discussion_positions_path(position.discussion)
-           else
-             position_path(position)
-           end%>
 <% submit_text ||= if position.new?
                     if position.new_record?
                       'Write position'
@@ -12,8 +7,8 @@
                    else
                     'Edit position'
                    end %>
-<div class="col-sm-6 col-md-4">
-  <%= form_for(position, url: url, class:"form-publish") do |f| %>
+<div class="col-sm-6 col-md-6">
+  <%= form_for(position, url: magic_url_for(position), class:"form-publish") do |f| %>
   <div class="thumbnail">
     <div class="caption">
       <%= f.text_field :name, class: "form-control", placeholder: "Anonymous Name for your position" %>

@@ -1,30 +1,55 @@
-.glow {
+$good_color: #5cb85c; /*From btn-success */
+$bad_color: #d9534f; /*From btn-danger */
+.top-left{
+  position: absolute;
+  margin-right: 20px;
+}
+.spacer{
   display: inline-block;
-  &.good {
-    $good_color: #5cb85c; /*From btn-success */
-    /*up*/
-    .btn {
-      box-shadow: 0px 0px 40px 5px rgba($good_color, 0.7);
-      &.btn-xs {
-        box-shadow: 0px 0px 15px 5px rgba(#5cb85c, 0.7);
+  width: 15px;
+}
+.arrows{
+  .badge{
+    margin: 5px 0px 5px 9px
+  }
+  .arrow {
+    &.good {
+      /*up*/
+      .btn {
+        background-color: $good_color;
       }
     }
-  }
-  &.bad {
-    $bad_color: #d9534f; /*From btn-danger */
-    /*down*/
-    .btn {
-      box-shadow: 0px 0px 40px 5px rgba($bad_color, 0.7);
-     &.btn-xs {
-        box-shadow: 0px 0px 15px 5px rgba($bad_color, 0.7);
+    &.bad {
+      /*down*/
+      .btn {
+        background-color: $bad_color;
       }
     }
   }
 }
 
-.glow .btn-xs{
 
-}
-.votable {
+.votable, .agreable {
   display:inline-block;
+  .glow {
+    display: inline-block;
+    &.good {
+      /*up*/
+      .btn {
+        box-shadow: 0px 0px 40px 5px rgba($good_color, 0.7);
+        &.btn-xs {
+          box-shadow: 0px 0px 15px 5px rgba(#5cb85c, 0.7);
+        }
+      }
+    }
+    &.bad {
+      /*down*/
+      .btn {
+        box-shadow: 0px 0px 40px 5px rgba($bad_color, 0.7);
+        &.btn-xs {
+          box-shadow: 0px 0px 15px 5px rgba($bad_color, 0.7);
+        }
+      }
+    }
+  }
 }

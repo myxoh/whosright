@@ -26,7 +26,7 @@ comments_initialize = ()->
     comments = $(this).closest(".comments")	
    	append_this = new_comments($.parseHTML(data))
    	comments.append(append_this)
-   	comments.append($(this).parent())
+   	$(this).parent().remove()
 
 
 $(document).ready(comments_initialize);

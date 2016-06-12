@@ -75,10 +75,10 @@ class PositionsControllerTest < ActionController::TestCase
 
 
   test "should create position only with specified params" do
-    position_created=assert_create_position
+    position_created = assert_create_position
     
-    assert position_created.name.nil?
-    assert position_created.body.nil?
+  #  assert position_created.name.nil? #This became irrelevant after UI change with dynamic creation of positions
+  #  assert position_created.body.nil? # Same as above.
     assert position_created.score.nil?
     assert_not position_created.email.nil?
     assert_not position_created.discussion.nil?
@@ -130,10 +130,12 @@ class PositionsControllerTest < ActionController::TestCase
     assert_redirected_to discussion_path(@discussion)
     assert_update @position
   end
+
   test "should update position only for correct user and correct params (two)" do  
     not_enough_permissions_assertion(@discussion.user){update_position @position}
     assert_update @position, false
   end
+
   test "should update position only for correct user and correct params (three)" do  
     not_enough_permissions_assertion(users(:no_permissions)){update_position @position}
     assert_update @position, false 
@@ -158,9 +160,7 @@ class PositionsControllerTest < ActionController::TestCase
   test "should not destroy" do
     not_enough_permissions_assertion(users(:no_permissions)){destroy_test @position, false}
   end
-  
 
-   
   test "vote_up and vote_down test" do
     vote_methods @position
   end

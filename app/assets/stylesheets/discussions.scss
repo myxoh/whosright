@@ -1,3 +1,47 @@
 // Place all the styles related to the Discussions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.discussion-home{
+  max-height: 50em;
+  margin-bottom: 20px;
+  overflow-y: auto;
+}
+
+.article{
+  background-color: #fcfcfe;
+  border: solid #F7F7F7 2px;
+  margin: auto;
+  padding:20px;
+  .header{
+    ul{
+
+    }
+    li{
+      display:inline-block;
+      &:before{
+        content: '\00a0\2022\00a0\00a0';
+        color:#999;
+        font-size:15px;
+      }
+      &:first-child{
+        &:before{
+          content: ''; /*no first-child*/
+        }
+      }
+      /*fix*/
+    }
+  }
+  .body{
+    .well{
+      max-width: 800px;
+    }
+  }
+  .content{
+    padding:10px;
+  }
+  .footer{
+    padding:10px;
+    border-top:solid rgb(100,100,100) 1px;
+  }
+}

@@ -1,19 +1,23 @@
+<% see_discussion ||= "See all..." %>
+<div class="col-sm-12 col-md-12">
+<div class="thumbnail article">
+    <%= render partial: 'discussions/content', locals: {discussion: discussion} %>
+    <div class="caption footer">
+      <h3 class="center">
+        Positions:
+        <%= badge span(discussion.active_positions.first(2).count)+span("/")+span(discussion.active_positions.count) %>
+        <%= link_to see_discussion, discussion, class: "btn btn-default btn-xs" %>
+      </h3>
+      <div class="container-fluid center">
+        <% discussion.active_positions.first(2).each_slice(2) do |row| %>
+            <div class="row">
+              <%= render partial: row, locals: {no_comments: true}%>
+            </div>
+        <% end %>
+      </div>
+    </div>
 
-<% see_discussion ||= "What do you think?" %>
-<div class="col-sm-6 col-md-4">
-	<div class="thumbnail">
-		<div class="caption">
-			<h3> <%=discussion.header%></h3>
-			<p><b>Type:</b> <%=discussion.type.name%></p>
-			<p><b>Topic:</b> <%=discussion.topic.name%></p>
-			<p><%=simple_format(discussion.body)%></p>
-		 </div>
-		<div class="caption footer">
-			<p>
-				<span><%=votable_tag(discussion)%></span> | <span><%=link_to see_discussion, discussion, class:"btn btn-primary", role:"button"%></span>
-			</p>
-		</div>
-		<%= commentable_tag(discussion) %>
-	</div>
-	
+  <%= render(partial: 'edit_options', locals: {discussion: discussion}) if owns? discussion unless discussion.published? %>
+  </div>
+
 </div>

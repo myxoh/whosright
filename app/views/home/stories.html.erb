@@ -1,11 +1,9 @@
 <div class="page-header">
-	<h1>Random Debates</h1>
+	<h1>Discussions</h1>
 </div>
 <div class="body">
-	<%@discussions.each_slice(3).each do |row|%>
-	<div class="row">
-		<%= render row%>
-	</div>
+	<%@discussions.each do |discussion|%>
+      <%=render partial:'partials/row', locals: {extra_class: "discussion-home", row: discussion}%>
 	<%end%>
 </div>
 </div>
