@@ -112,6 +112,8 @@ GEM
     passenger (5.0.28)
       rack
       rake (>= 0.8.1)
+    pg (0.18.4)
+    pg (0.18.4-x64-mingw32)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -199,6 +201,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-facebook
   passenger
+  pg
   rails (= 4.2.6)
   rails-assets-tether (>= 1.1.0)
   sass-rails (~> 5.0)

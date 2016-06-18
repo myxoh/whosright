@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-sm-4 col-md-4" id="search-box">
+		<div class="thumbnail">
+			<h3 class="center">
+				Or invite anyone with an invite link</h3>
+			<div class="caption">
+        <% link_design = span(span("", class: "glyphicon glyphicon-share-alt")+span(" Generate Link"), class:"btn btn-default form-control") %>
+        <%= link_to link_design, new_token_discussion_positions_path(@discussion) , remote: true, method: :post, format: :json%>
+
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-8 col-md-8" id="link-box">
+		<div class="thumbnail">
+			<div class="caption">
+				<p>Copy using Ctrl (Or Cmd) + C or right click and copy the link and share.</p>
+        <p><b>Remember!</b> Only 1 person per link!</p>
+        <input type="url" id="link-box-link" placeholder="Invitation link" class="form-control">
+
+		  </div>
+	  </div>
+  </div>
+</div>
