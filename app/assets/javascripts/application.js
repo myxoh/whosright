@@ -16,4 +16,5 @@
 //= jquery.turbolinks
 //= require tether
 //= require bootstrap
+//= require social-share-button
 //= require_tree .

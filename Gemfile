@@ -11,6 +11,7 @@ gem 'autoprefixer-rails'
 gem 'bootstrap-social-rails'
 gem 'font-awesome-rails'
 # Functionality:
+gem 'social-share-button'
 
 # Security:
 gem 'bcrypt', '~> 3.1.7'

@@ -13,7 +13,7 @@ class Discussion < ActiveRecord::Base
   validates :topic, presence: true
   validates :type, presence: true
   validates :published, absence: { message: " Problem: Discussion is already published" }
-
+  default_scope {(order(created_at: :desc))}
   scope :published, ->{where(published: true)}
   scope :unpublished, ->{where(published: nil)}
   def editable?(user)

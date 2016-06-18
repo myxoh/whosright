@@ -30,7 +30,11 @@ Rails.application.routes.draw do
       member do
         get 'publish'
       end
-      resources :positions, shallow: true, concerns: [:votable, :commentable]
+      resources :positions, shallow: true, concerns: [:votable, :commentable] do
+        collection do
+          post 'new_token'
+        end
+      end
     end
   end
   

@@ -2,4 +2,7 @@
   <div class="well center">
       <%= simple_format(discussion.body, style: "text-align: left;") %>
   </div>
+  <div class="social center">
+    <%= social_share_button_tag(discussion.header, popup: "true", url: polymorphic_url(discussion)) %>
+  </div>
 </div>
